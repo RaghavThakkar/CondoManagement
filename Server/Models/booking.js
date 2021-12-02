@@ -9,7 +9,7 @@ const BookingSchema = new Schema({
     id: String,
     userId: String,
     date: Date,
-    timeSlot: Date,
+    timeSlot: Number,
     type: String,
     status: String,
     created: Date,
