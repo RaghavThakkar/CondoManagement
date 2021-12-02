@@ -2,7 +2,7 @@ Fisrt install the dependencies using following command.
 
 npm install 
 
-start node server using following command.
+start node server using following commands.
 
 nodemon
 
