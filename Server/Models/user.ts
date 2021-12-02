@@ -3,9 +3,15 @@ import passportLocalMongoose from 'passport-local-mongoose';
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    username: String,
+    id: Number,
+    firstName: String,
+    lastName: String,
+    type: Number,
     emailAddress: String,
+    phone: String,
+    username: String,
     displayName: String,
+
     //add in field for user type
     created: {
         type: Date,
