@@ -1,0 +1,17 @@
+<div style="color:white;">
+    <h3><%= title %> Announcement</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Memo Title" required>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea type="text" class="form-control" id="content" rows="3" name="content"  required></textarea>
+          </div>
+    
+          <button type ="submit" class ="btn btn-primary" id="addButton">Add</button>
+          <a href="/announcement" class="btn btn-danger btn-sm danger" style="height: 38px; font-size:16px; ">Cancel</a>
+    </form>
+</div>
+

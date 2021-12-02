@@ -1,0 +1,31 @@
+<div class="container">
+<div class="row justify-content-lg-center g-3">
+<h1 class="text-light">Business Contacts <%= title %></h1>
+  <form method="post"  class="col-lg-6 col-md-10 col-sm-10">
+   <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-name">Name</span>
+            <input type="text" class="form-control" placeholder="Enter Contact Name" aria-label="Contact Name" aria-describedby="Contact Name"
+            name="name" value="<%= item.name %>" required>
+        </div>
+
+   <div class="input-group mb-3">
+  <span class="input-group-text" id="basic-addon1">Email</span>
+  <input type="text" id="email" name="email" class="form-control" placeholder="Email"  value="<%=item.emailAddress%>" aria-label="email" aria-describedby="basic-addon1" require>
+</div>
+
+   <div class="input-group mb-3">
+  <span class="input-group-text" id="basic-addon1">Phone</span>
+  <input type="text" id="phone"  name="number" class="form-control" placeholder="Phone"  value="<%=item.number%>" aria-label="phone" aria-describedby="basic-addon1" require>
+</div>
+<% if(title == "Edit") { %>
+  <button type="submit" id="editButton" class="btn btn-primary"><i class="fas fa-edit fa-lg"></i> Update</button>
+<% } else { %>
+  <button type="submit" id="addButton" class="btn btn-primary"><i class="fas fa-plus-circle fa-lg"></i> Add</button>
+<% } %>  
+
+
+<a href="/contact-list" id="cancelButton" type="button" class="btn btn-warning"><i class="fas fa-undo"></i> Cancel</a>
+<a href="/contact-list/delete/<%= item._id %>" class="btn btn-danger delete"><i class="fas fa-trash-alt fa-sm"></i> Delete</a>
+</form>
+</div>
+</div>
