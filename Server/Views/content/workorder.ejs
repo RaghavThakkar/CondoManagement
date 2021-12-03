@@ -30,8 +30,8 @@
          <td><%=workOrder[count].unit %></td>
 
        <% if(displayName) { %>
-      <td><a href="/workorder/edit/<%=workOrder[count].id%>"><i class="fas fa-edit"></i></a></td>
-      <td><a href="/workorder/delete/<%=workOrder[count].id%>" class="delete"><i class="fas fa-trash"></i></a></td>
+      <td><a href="/workorder/edit/<%=workOrder[count]._id%>"><i class="fas fa-edit"></i></a></td>
+      <td><a href="/workorder/delete/<%=workOrder[count]._id%>" class="delete"><i class="fas fa-trash"></i></a></td>
          <% } %>
     </tr>
     <% }%>

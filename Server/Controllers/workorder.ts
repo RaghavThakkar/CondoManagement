@@ -40,7 +40,6 @@ export function ProcessEditWorkOrderPage(req: Request, res: Response, next: Next
 
     let updateWorkOrder = new WorkOrder
         ({
-            "_id": id,
             "order_due": req.body.name,
             "id": req.body.email,
             "status": req.body.number,
