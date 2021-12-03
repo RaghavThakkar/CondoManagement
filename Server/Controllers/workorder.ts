@@ -21,7 +21,7 @@ export function DisplayWorkOrderPage(req: Request, res: Response, next: NextFunc
 
 
 export function DisplayEditWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
-    let id = req.params['id'];
+    let id = req.params.id;
     WorkOrder.findById(id, {}, {}, (err, item) => {
         if (err) {
             console.error(err);

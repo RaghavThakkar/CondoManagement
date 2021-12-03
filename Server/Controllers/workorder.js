@@ -17,7 +17,7 @@ function DisplayWorkOrderPage(req, res, next) {
 }
 exports.DisplayWorkOrderPage = DisplayWorkOrderPage;
 function DisplayEditWorkOrderPage(req, res, next) {
-    let id = req.params['id'];
+    let id = req.params.id;
     workorder_1.default.findById(id, {}, {}, (err, item) => {
         if (err) {
             console.error(err);
