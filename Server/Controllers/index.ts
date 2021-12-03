@@ -104,5 +104,5 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
 }
 
 export function DisplayWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
-    res.render('index', { title: 'Maintenance Work Orders', page: 'workorders', displayName: UserDisplayName(req) });
+    res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: UserDisplayName(req) });
 }

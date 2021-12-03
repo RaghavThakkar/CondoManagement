@@ -18,7 +18,6 @@ export function DisplayContactList(req: Request, res: Response, next: NextFuncti
 
 }
 
-
 export function DisplayEditPage(req: Request, res: Response, next: NextFunction): void {
     let id = req.params['id'];
     Contact.findById(id, {}, {}, (err, item) => {

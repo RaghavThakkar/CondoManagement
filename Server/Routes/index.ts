@@ -39,8 +39,8 @@ router.get('/register', DisplayRegisterPage);
 /* Post register page. */
 router.get('/logout', ProcessLogoutPage);
 
-/* GET workorders page. */
-router.get('/workorders', DisplayWorkOrderPage)
+/* GET workorder page. */
+router.get('/workorder', DisplayWorkOrderPage)
 //module.exports = router;
 
 
