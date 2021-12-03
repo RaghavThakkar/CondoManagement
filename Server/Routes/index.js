@@ -18,5 +18,5 @@ router.post('/login', index_1.ProcessLoginPage);
 router.get('/register', index_1.DisplayRegisterPage);
 router.post('/register', index_1.ProcessRegisterPage);
 router.get('/logout', index_1.ProcessLogoutPage);
-router.get('/workorder', index_1.DisplayWorkOrderPage);
+module.exports = router;
 //# sourceMappingURL=index.js.map

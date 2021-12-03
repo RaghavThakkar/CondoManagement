@@ -15,7 +15,7 @@ export function DisplayWorkOrderList(req: Request, res: Response, next: NextFunc
         res.render('index', { title: 'Work Order', page: 'workorder', workOrder: workOrderList, displayName: UserDisplayName(req) });
         
 
-    }).sort({ "name": 1 });
+    })
 
 }
 

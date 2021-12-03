@@ -13,7 +13,7 @@ function DisplayWorkOrderList(req, res, next) {
             res.end(err);
         }
         res.render('index', { title: 'Work Order', page: 'workorder', workOrder: workOrderList, displayName: Util_1.UserDisplayName(req) });
-    }).sort({ "name": 1 });
+    });
 }
 exports.DisplayWorkOrderList = DisplayWorkOrderList;
 //# sourceMappingURL=workorder.js.map

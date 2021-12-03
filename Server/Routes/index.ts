@@ -40,7 +40,7 @@ router.get('/register', DisplayRegisterPage);
 router.get('/logout', ProcessLogoutPage);
 
 /* GET workorder page. */
-router.get('/workorder', DisplayWorkOrderPage)
-//module.exports = router;
+//router.get('/workorder', DisplayWorkOrderPage)
+module.exports = router;
 
 
