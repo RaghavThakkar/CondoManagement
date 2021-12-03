@@ -30,7 +30,6 @@ exports.DisplayEditWorkOrderPage = DisplayEditWorkOrderPage;
 function ProcessEditWorkOrderPage(req, res, next) {
     let id = req.params.id;
     let updateWorkOrder = new workorder_1.default({
-        "_id": id,
         "order_due": req.body.name,
         "id": req.body.email,
         "status": req.body.number,
