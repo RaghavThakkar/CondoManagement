@@ -1,11 +1,11 @@
 import { Console } from 'console';
 import express, { Request, Response, NextFunction } from 'express';
-
+import passport from 'passport';
 import WorkOrder from '../Models/workorder';
-
 import { UserDisplayName } from '../Util';
 
-export function DisplayWorkOrderList(req: Request, res: Response, next: NextFunction): void {
+//GET request to display all work orders
+export function DisplayWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
 
     WorkOrder.find(function (err, workOrderList) {
         if (err) {
@@ -15,86 +15,89 @@ export function DisplayWorkOrderList(req: Request, res: Response, next: NextFunc
         res.render('index', { title: 'Work Order', page: 'workorder', workOrder: workOrderList, displayName: UserDisplayName(req) });
         
 
-    })
+    }).sort({ "name": 1 }); //what does this function do? what is it sorting?
+
+}
+
+
+export function DisplayEditWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
+    let id = req.params['id'];
+    WorkOrder.findById(id, {}, {}, (err, item) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.render('index', { title: 'Edit', page: 'workorder-edit', workOrder: item, displayName: UserDisplayName(req) });
+    });
+
+}
+
+
+export function ProcessEditWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
+
+
+    let id = req.params.id;
+
+    let updateWorkOrder = new WorkOrder
+        ({
+            "_id": id,
+            "order_due": req.body.name,
+            "id": req.body.email,
+            "status": req.body.number,
+            "description": req.body.number,
+            "priority": req.body.number,
+            "userId": req.body.number,
+            "unit": req.body.number
+        });
+
+    WorkOrder.updateOne({ _id: id }, updateWorkOrder, {}, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.redirect("/workorder");
+    });
 
 }
 
 /*
-export function DisplayEditPage(req: Request, res: Response, next: NextFunction): void {
-    let id = req.params['id'];
-    Contact.findById(id, {}, {}, (err, item) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-        res.render('index', { title: 'Edit', page: 'contact-edit', item: item, displayName: UserDisplayName(req) });
-    });
-
-}
-
-export function DisplayAddPage(req: Request, res: Response, next: NextFunction): void {
-
-    res.render('index', { title: 'Add', page: 'contact-edit', item: '', displayName: UserDisplayName(req) });
-}
-
-export function ProcessContactUpdate(req: Request, res: Response, next: NextFunction): void {
-
-
-    let id = req.params.id;
-
-    let updateContact = new Contact
-        ({
-            "_id": id,
-            "name": req.body.name,
-            "emailAddress": req.body.email,
-            "number": req.body.number
-        });
-
-    Contact.updateOne({ _id: id }, updateContact, {}, (err) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-        res.redirect("/contact-list");
-    });
-
-}
-
-export function ProcessContactAdd(req: Request, res: Response, next: NextFunction): void {
+export function ProcessWorkOrderAdd(req: Request, res: Response, next: NextFunction): void {
 
 
 
-
-    let newContact = new Contact
+    let newWorkOrder = new WorkOrder
         ({
 
-            "name": req.body.name,
-            "emailAddress": req.body.email,
-            "number": req.body.number
+            "order_due": req.body.name,
+            "id": req.body.email,
+            "status": req.body.number,
+            "description": req.body.number,
+            "priority": req.body.number,
+            "userId": req.body.number,
+            "unit": req.body.number
         });
 
-    Contact.create(newContact, (err) => {
+    WorkOrder.create(newWorkOrder, (err) => {
         if (err) {
             console.error(err);
             res.end(err);
         }
 
-        res.redirect('/contact-list');
+        res.redirect('/workorder');
     });
 
-}
-
-export function ProcessContactDelete(req: Request, res: Response, next: NextFunction): void {
-    let id = req.params.id;
-
-    // db.clothing.remove({"_id: id"})
-    Contact.remove({ _id: id }, (err) => {
-        if (err) {
-            console.error(err);
-            res.end(err);
-        }
-
-        res.redirect('/contact-list');
-    });
 }
 */
+export function ProcessDeleteWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
+    let id = req.params.id;
+
+    
+    WorkOrder.remove({ _id: id }, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+
+        res.redirect('/workorder');
+    });
+}

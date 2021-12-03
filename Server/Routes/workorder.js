@@ -7,5 +7,9 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
 const workorder_1 = require("../Controllers/workorder");
-router.get('/', workorder_1.DisplayWorkOrderList);
+router.get('/', workorder_1.DisplayWorkOrderPage);
+router.get('/', workorder_1.DisplayWorkOrderPage);
+router.get('/edit/:id', workorder_1.DisplayEditWorkOrderPage);
+router.post('/edit/:id', workorder_1.ProcessEditWorkOrderPage);
+router.get('/delete/:id', workorder_1.ProcessDeleteWorkOrderPage);
 //# sourceMappingURL=workorder.js.map
