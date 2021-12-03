@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage, DisplayWorkOrderPage } from '../Controllers/index'
+import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
 
 /* GET home page. */
 router.get('/', DisplayHomePage);

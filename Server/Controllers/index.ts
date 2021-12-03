@@ -3,7 +3,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 
 import User from '../Models/user';
-import WorkOrder from '../Models/workorder'
 import { UserDisplayName } from '../Util';
 
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {

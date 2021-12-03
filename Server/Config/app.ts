@@ -39,7 +39,6 @@ if (DBConfig.isDev) {
   mongoose.connect(DBConfig.RemoteURI, { useNewUrlParser: true, useUnifiedTopology: true });
 }
 
-
 const db = mongoose.connection; // alias for the mongoose connection
 db.on("error", function () {
   console.error("connection error");
