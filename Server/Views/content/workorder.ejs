@@ -1,0 +1,40 @@
+<div class="container">
+    <h1 class="text-light">Work Orders</h1>
+    <table class="table  table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Order Due</th>
+      <th scope="col">Id</th>
+      <th scope="col">Status</th>
+      <th scope="col">Description</th>
+      <th scope="col">Priority</th>
+      <th scope="col">User Id</th>
+      <th scope="col">Unit</th>
+       <% if(displayName) { %>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+        <% } %>
+    </tr>
+  </thead>
+<tbody>
+  <% for(let count=0; count<workOrder.length;count++) {%>
+    <tr>
+      <th scope="row"><%=count+1  %></th>
+      <td><%=workOrder[count].order_Due %></td>
+      <td><%=workOrder[count].id %></td>
+      <td><%=workOrder[count].status %></td>
+       <td><%=workOrder[count].description %></td>
+        <td><%=workOrder[count].priority %></td>
+         <td><%=workOrder[count].userId %></td>
+         <td><%=workOrder[count].unit %></td>
+
+       <% if(displayName) { %>
+      <td><a href="/workorder/edit/<%=workOrder[count]._id%>"><i class="fas fa-edit"></i></a></td>
+      <td><a href="/workorder/delete/<%=workOrder[count]._id%>" class="delete"><i class="fas fa-trash"></i></a></td>
+         <% } %>
+    </tr>
+    <% }%>
+  </tbody>
+</table>
+</div>

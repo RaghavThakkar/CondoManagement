@@ -3,7 +3,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 
 import User from '../Models/user';
-import WorkOrder from '../Models/workorder'
 import { UserDisplayName } from '../Util';
 
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
@@ -57,7 +56,7 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
                 return next(err);
             }
 
-            return res.redirect('/contact-list');
+            return res.redirect('/');
 
         });
     })(req, res, next);
@@ -104,5 +103,5 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
 }
 
 export function DisplayWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
-    res.render('index', { title: 'Maintenance Work Orders', page: 'workorders', displayName: UserDisplayName(req) });
+    res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: UserDisplayName(req) });
 }

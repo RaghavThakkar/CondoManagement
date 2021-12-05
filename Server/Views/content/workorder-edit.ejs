@@ -1,0 +1,17 @@
+<div style="color:white;">
+    <h3><%=title %> Work Order</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="order_Due" class="form-label">Order Due</label>
+            <input type="text" class="form-control" id="WorkorderDue" name="order_Due" value="<%=workOrder.order_Due%>" required>
+          </div>
+          <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" name="id" value="<%=workOrder.id%>" required>
+          </div>
+    
+          <button type ="submit" class ="btn btn-primary" id="editButton">Edit</button>
+          
+    </form>
+</div>
+

@@ -49,7 +49,7 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 return next(err);
             }
-            return res.redirect('/contact-list');
+            return res.redirect('/');
         });
     })(req, res, next);
 }
@@ -88,7 +88,7 @@ function ProcessLogoutPage(req, res, next) {
 }
 exports.ProcessLogoutPage = ProcessLogoutPage;
 function DisplayWorkOrderPage(req, res, next) {
-    res.render('index', { title: 'Maintenance Work Orders', page: 'workorders', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: Util_1.UserDisplayName(req) });
 }
 exports.DisplayWorkOrderPage = DisplayWorkOrderPage;
 //# sourceMappingURL=index.js.map

@@ -11,10 +11,10 @@ const WorkOrderSchema = new Schema({
     status: String,
     description: String,
     priority: String,
-    assignee: String,
+    userId: String,
     unit: String
 }, {
-    collection: "work-order"
+    collection: "workorder"
 });
 const Model = mongoose_1.default.model("WorkOrder", WorkOrderSchema);
 exports.default = Model;
