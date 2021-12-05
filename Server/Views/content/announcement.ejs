@@ -8,6 +8,7 @@
           
        <h4><%= i+1 +". "%><%= announcement[i].title%></h4>
         <p><%= announcement[i].content%></p>
+        <p>Date: <%= announcement[i].date.toLocaleString()%></p>
         <% if(displayName) { %>
         <a href="/announcement/edit/<%= announcement[i]._id%>" class="btn btn-primary btn-sm edit">Edit</a>
         <a href="/announcement/delete/<%= announcement[i]._id%>" class="btn btn-danger btn-sm danger">Delete</a>

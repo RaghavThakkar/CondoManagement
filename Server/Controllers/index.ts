@@ -56,7 +56,7 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
                 return next(err);
             }
 
-            return res.redirect('/contact-list');
+            return res.redirect('/');
 
         });
     })(req, res, next);

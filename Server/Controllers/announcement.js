@@ -31,8 +31,10 @@ function DisplayAddAnnouncementPage(req, res, next) {
 }
 exports.DisplayAddAnnouncementPage = DisplayAddAnnouncementPage;
 function ProcessAddAnnouncementPage(req, res, next) {
+    let dateNow = Date.now();
     let newAnnouncement = new announcement_1.default({
         "title": req.body.title,
+        "date": dateNow,
         "content": req.body.content
     });
     announcement_1.default.create(newAnnouncement, (err) => {

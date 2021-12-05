@@ -49,7 +49,7 @@ function ProcessLoginPage(req, res, next) {
                 console.error(err);
                 return next(err);
             }
-            return res.redirect('/contact-list');
+            return res.redirect('/');
         });
     })(req, res, next);
 }
