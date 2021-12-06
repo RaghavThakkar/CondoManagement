@@ -1,12 +1,31 @@
 import express, { Request, Response, NextFunction } from 'express';
 
 import passport from 'passport';
-
+import Booking from '../Models/booking';
 import User from '../Models/user';
 import { UserDisplayName } from '../Util';
 
-export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
-    res.render('index', { title: 'Home', page: 'main', displayName: UserDisplayName(req) });
+export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
+
+
+    try {
+
+
+        const bookingList = await Booking.find(
+            { 'userId': UserDisplayName(req) }).lean().exec();
+
+        console.log(bookingList);
+        res.render('index', {
+            title: 'Home',
+            page: 'main',
+            items: bookingList,
+            displayName: UserDisplayName(req)
+        });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
 }
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {
@@ -30,7 +49,7 @@ export function DisplayLoginPage(req: Request, res: Response, next: NextFunction
         return res.render('index', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: UserDisplayName(req) });
     }
 
-    return res.redirect('/contact-list');
+    return res.redirect('/home');
 
 }
 

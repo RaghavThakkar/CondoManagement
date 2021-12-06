@@ -39,6 +39,7 @@ const index_1 = __importDefault(require("../Routes/index"));
 const contact_1 = __importDefault(require("../Routes/contact"));
 const announcement_1 = __importDefault(require("../Routes/announcement"));
 const workorder_1 = __importDefault(require("../Routes/workorder"));
+const booking_1 = __importDefault(require("../Routes/booking"));
 const app = express_1.default();
 exports.default = app;
 const DBConfig = __importStar(require("./db"));
@@ -79,6 +80,7 @@ app.use('/', index_1.default);
 app.use('/contact-list', contact_1.default);
 app.use('/announcement', announcement_1.default);
 app.use('/workorder', workorder_1.default);
+app.use('/booking', booking_1.default);
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));
 });

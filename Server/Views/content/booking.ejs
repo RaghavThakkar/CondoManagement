@@ -1,0 +1,55 @@
+<div class="album py-5 bg-light mt-2 mb-4">
+    <div class="container">
+
+        <div class="row   text-center justify-content-center">
+            <div class="col-md-4">
+
+                <!-- message area -->
+                <% if(messages.length> 0) { %>
+                    <div id="messageArea" class="alert alert-danger">
+                        <%= messages %>
+                    </div>
+                    <% } %>
+
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Date</label>
+                                <input type="date" class="form-control" name="date" id="exampleFormControlInput1"
+                                    placeholder="name@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Time slot</label>
+                                <select class="form-select" aria-label="Default select example" name="timeslot"
+                                    required>
+                                    <option selected value="">Select</option>
+                                    <option value="1">9:30 AM to 10:30 AM</option>
+                                    <option value="2">10:30 AM to 11:30 AM</option>
+                                    <option value="3">11:30 AM to 12:30 PM</option>
+                                    <option value="4">12:30 PM to 01:30 PM</option>
+                                    <option value="5">01:30 PM to 02:30 PM</option>
+                                    <option value="6">02:30 PM to 03:30 PM</option>
+                                    <option value="7">03:30 PM to 04:30 PM</option>
+                                    <option value="8">04:30 PM to 05:30 PM</option>
+                                    <option value="9">05:30 PM to 06:30 PM</option>
+                                    <option value="10">06:30 PM to 07:30 PM</option>
+                                    <option value="11">07:30 PM to 08:30 PM</option>
+                                    <option value="12">08:30 PM to 09:30 PM</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>

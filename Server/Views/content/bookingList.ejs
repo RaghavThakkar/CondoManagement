@@ -1,0 +1,55 @@
+<div class="p-5 mt-2 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <table class="table">
+      <caption>List of booking</caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Booking Date</th>
+          <th scope="col">Booking Time</th>
+          <th scope="col">Amenity</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(items.length==0){ %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>No Booking.</td>
+
+            <td></td>
+            <td></td>
+          </tr>
+          <% } %>
+
+            <% for (let count=0; count < items.length; count++) { %>
+
+
+
+              <th scope="row">
+                <%= count+1%>
+              </th>
+              <td>
+                <%= items[count].userId%>
+              </td>
+              <td>
+                <%= items[count].date%>
+              </td>
+              <td>
+                <%= items[count].timeSlot%>
+              </td>
+              <td>
+                <%= items[count].type%>
+              </td>
+              <td>
+                <%= items[count].status%>
+              </td>
+              </tr>
+              <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

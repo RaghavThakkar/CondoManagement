@@ -3,12 +3,12 @@ const router = express.Router();
 export default router;
 
 import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index'
+import { AuthGuard } from '../Util'
+/* GET home page. */
+router.get('/', AuthGuard, DisplayHomePage);
 
 /* GET home page. */
-router.get('/', DisplayHomePage);
-
-/* GET home page. */
-router.get('/home', DisplayHomePage);
+router.get('/home', AuthGuard, DisplayHomePage);
 
 /* GET about page. */
 router.get('/about', DisplayAboutPage);
@@ -31,9 +31,9 @@ router.post('/login', ProcessLoginPage);
 
 /* GET login page. */
 router.get('/register', DisplayRegisterPage);
- 
- /* Post register page.*/
- router.post('/register', ProcessRegisterPage);
+
+/* Post register page.*/
+router.post('/register', ProcessRegisterPage);
 
 
 /* Post register page. */

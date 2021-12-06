@@ -8,7 +8,7 @@ const Schema = mongoose_1.default.Schema;
 const BookingSchema = new Schema({
     id: String,
     userId: String,
-    date: Date,
+    date: String,
     timeSlot: Number,
     type: String,
     status: String,

@@ -26,12 +26,13 @@ import indexRouter from '../Routes/index';
 import contactRouter from '../Routes/contact';
 import announcementRouter from '../Routes/announcement';
 import workOrderRouter from '../Routes/workorder';
+import bookingRouter from '../Routes/booking';
 // Express Web App Configuration
 const app = express();
 export default app; // exports app as the default Object for this module
 //
 // DB Configuration
-import * as DBConfig from './db'; 
+import * as DBConfig from './db';
 
 if (DBConfig.isDev) {
   mongoose.connect(DBConfig.LocalURI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -86,7 +87,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/', indexRouter);
 app.use('/contact-list', contactRouter);
 app.use('/announcement', announcementRouter);
-app.use('/workorder',workOrderRouter);
+app.use('/workorder', workOrderRouter);
+app.use('/booking', bookingRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
