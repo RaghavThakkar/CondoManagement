@@ -17,15 +17,19 @@ const passport_1 = __importDefault(require("passport"));
 const booking_1 = __importDefault(require("../Models/booking"));
 const user_1 = __importDefault(require("../Models/user"));
 const Util_1 = require("../Util");
+const announcement_1 = __importDefault(require("../Models/announcement"));
 function DisplayHomePage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const bookingList = yield booking_1.default.find({ 'userId': Util_1.UserDisplayName(req) }).lean().exec();
+            const announcementList = yield announcement_1.default.find();
+            console.log(announcementList);
             console.log(bookingList);
             res.render('index', {
                 title: 'Home',
                 page: 'main',
                 items: bookingList,
+                announcement: announcementList,
                 displayName: Util_1.UserDisplayName(req)
             });
         }

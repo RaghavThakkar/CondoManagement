@@ -4,7 +4,7 @@ import passport from 'passport';
 import Booking from '../Models/booking';
 import User from '../Models/user';
 import { UserDisplayName } from '../Util';
-
+import Announcement from '../Models/announcement';
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
 
 
@@ -13,14 +13,16 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
 
         const bookingList = await Booking.find(
             { 'userId': UserDisplayName(req) }).lean().exec();
-
+        const announcementList = await Announcement.find();
+        console.log(announcementList);
         console.log(bookingList);
         res.render('index', {
             title: 'Home',
             page: 'main',
             items: bookingList,
+            announcement: announcementList,
             displayName: UserDisplayName(req)
-        });
+        },);
     } catch (err) {
         console.error(err);
         res.end(err);
