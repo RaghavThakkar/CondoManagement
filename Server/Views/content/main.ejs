@@ -1,4 +1,4 @@
-<div class="p-5 mt-2 mb-4 bg-light rounded-3 zoom">
+<div class="p-2 mt-2 mb-4 bg-light rounded-3 zoom">
   <div class="container-fluid py-5">
     <h1 class="display-5 fw-bold">Custom jumbotron</h1>
     <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous
@@ -152,15 +152,24 @@
       <h5 class="card-title">Recent Booking</h5>
       <div class="list-group">
         <% if(items.length==0){ %>
-          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32"
-              class="rounded-circle flex-shrink-0">
-            <div class="d-flex gap-2 w-100 justify-content-between">
-              <div>
-                <h6 class="mb-0">No Booking</h6>
+           <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32"
+                  class="rounded-circle flex-shrink-0">
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                  <div>
+                    <h6 class="mb-0">
+                     No Booking.
+                    </h6>
+                    <p class="mb-0 opacity-75">
+                    
+                    </p>
 
-              </div>
-          </a>
+                  </div>
+                  <small class="opacity-50 text-nowrap">
+                   
+                  </small>
+                </div>
+              </a>
           <% } %>
 
             <% for (let count=0; count < items.length; count++) { %>
