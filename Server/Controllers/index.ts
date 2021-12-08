@@ -1,9 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 
 import passport from 'passport';
+import nodemailer from 'nodemailer';
 import Booking from '../Models/booking';
+import Announcement from '../Models/announcement';
 import User from '../Models/user';
-import { UserDisplayName } from '../Util';
+import { UserDisplayName, UserUserName, UserId } from '../Util';
 
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
 
@@ -12,13 +14,16 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
 
 
         const bookingList = await Booking.find(
-            { 'userId': UserDisplayName(req) }).lean().exec();
+            { 'userId': UserDisplayName(req) }).limit(5).lean().exec();
+
+        const announcementsList = await Announcement.find().limit(5).lean().exec();
 
         console.log(bookingList);
         res.render('index', {
             title: 'Home',
             page: 'main',
             items: bookingList,
+            announcementsList: announcementsList,
             displayName: UserDisplayName(req)
         });
     } catch (err) {
@@ -38,6 +43,46 @@ export function DisplayProjectPage(req: Request, res: Response, next: NextFuncti
 
 export function DisplayContactPage(req: Request, res: Response, next: NextFunction): void {
     res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req) });
+}
+
+export async function ProcessContactPage(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const output = ` 
+      <p>You have new Request</p>
+      <h3>User Information:</h3>
+      <ul>
+       <li><b>Name:</b> ${req.body.firstName} ${req.body.lastName}</li>
+       <li><b>Email:</b> ${req.body.email}</li>
+       <li><b>Phone Number:</b> ${req.body.phone}</li>
+       <li><b>Message:</b> ${req.body.description}</li>
+       </ul>
+    `;
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail', // true for 465, false for other ports
+        auth: {
+            user: 'latestdummy@gmail.com', // 
+            pass: 'latest@123', // 
+        }
+    });
+
+    // send mail with defined transport object
+    let mailOptions = {
+        from: 'latestdummy@gmail.com', // sender address
+        to: 'latestdummy@gmail.com', // list of receivers
+        subject: "Message From CondoManagement", // Subject line
+        text: "Hello World",
+        html: output
+    };
+
+    transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+            console.log('error');
+        } else {
+            console.log('success....' + data.response);
+        }
+    })
+
+    return res.redirect('/home');
 }
 
 export function DisplayServicesPage(req: Request, res: Response, next: NextFunction): void {
@@ -83,7 +128,7 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
 
 export function DisplayRegisterPage(req: Request, res: Response, next: NextFunction): void {
     if (!req.user) {
-        return res.render('index', { title: 'Login', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req) });
+        return res.render('index', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: UserDisplayName(req) });
     }
 
     return res.redirect('/contact-list');
@@ -93,9 +138,18 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
     // instantiate a new User Object
     let newUser = new User
         ({
-            username: req.body.username,
-            emailAddress: req.body.emailAddress,
-            displayName: req.body.FirstName + " " + req.body.LastName
+            "firstName": req.body.FirstName,
+            "lastName": req.body.LastName,
+            "phone": req.body.phone,
+            "type": req.body.type,
+            "username": req.body.username,
+            "unit": req.body.unit,
+            "city": req.body.city,
+            "province": req.body.province,
+            "street": req.body.street,
+            "zipcode": req.body.zipcode,
+            "email": req.body.email,
+            "displayName": req.body.FirstName + " " + req.body.LastName
         });
 
     User.register(newUser, req.body.password, (err) => {
@@ -123,4 +177,66 @@ export function ProcessLogoutPage(req: Request, res: Response, next: NextFunctio
 
 export function DisplayWorkOrderPage(req: Request, res: Response, next: NextFunction): void {
     res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: UserDisplayName(req) });
+}
+
+
+export function DisplayProfilePage(req: Request, res: Response, next: NextFunction): void {
+    User.findOne({ "email": UserId(req) }, {}, {}, (err, UserItems) => {
+
+        if (err) {
+            console.error(err);
+            return res.redirect('/error');
+        }
+
+        console.log(UserItems);
+        res.render('index', { title: 'Profile', page: 'profile', user: UserItems, displayName: UserDisplayName(req) });
+    });
+}
+
+export async function ProcessProfilePage(req: Request, res: Response, next: NextFunction) {
+
+    try {
+
+
+        const currentUser = await User.findOne({ "email": UserId(req) }).lean().exec();
+
+        let updatedProfile = new User
+            ({
+                "_id": currentUser._id,
+                "firstName": req.body.FirstName,
+                "lastName": req.body.LastName,
+                "phone": req.body.phone,
+                "username": req.body.username,
+                "unit": req.body.unit,
+                "city": req.body.city,
+                "province": req.body.province,
+                "street": req.body.street,
+                "zipcode": req.body.zipcode,
+                "email": req.body.email,
+                "displayName": req.body.FirstName + " " + req.body.LastName
+            });
+
+        User.updateOne({ _id: currentUser._id }, updatedProfile, {}, (err) => {
+            if (err) {
+                console.error(err);
+                return res.redirect('/error');
+            }
+
+            res.redirect('/login');
+        });
+
+        console.log(updatedProfile);
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
 }

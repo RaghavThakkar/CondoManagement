@@ -10,6 +10,23 @@ export function UserDisplayName(req: Request): string {
     return '';
 }
 
+export function UserUserName(req: Request): string {
+    if (req.user) {
+        let user = req.user as UserDocument;
+        return user.username.toString();
+    }
+    return '';
+}
+
+export function UserId(req: Request): string {
+    if (req.user) {
+        let user = req.user as UserDocument;
+        return user.email.toString();
+    }
+    return '';
+}
+
+
 export function AuthGuard(req: Request, res: Response, next: NextFunction): void {
     if (!req.isAuthenticated()) {
         return res.redirect('/login');

@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12 mt-5">
+      <div class="login bg-light " id="contentArea">
+        <h1 class="display-4">Profile Update</h1>
+
+
+        <form method="POST" id="registerForm" novalidate>
+
+          <div class="form-group">
+            <div class="row">
+              <p class="lead"><i class="fas fa-user-shield"></i> Personal Information</p>
+              <div class="col-md-6 ">
+                <input class="form-control" type="text" name="FirstName" id="firstName" value="<%= user.firstName %>"
+                  placeholder="First Name" required>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="LastName" id="lastName" value="<%= user.lastName %>"
+                  placeholder="Last Name" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="email" class="form-control" disabled id="emailAddress" name="email"
+                  value="<%= user.email %>" required value="" placeholder="Email Address">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="number" class="form-control" id="phone" name="phone" value="<%= user.phone %>" required
+                  value="" placeholder="Phone">
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-group  mt-3">
+            <div class="row">
+
+              <div class="col-md-6 ">
+                <input class="form-control" type="text" name="unit" id="unit" value="<%= user.unit %>"
+                  placeholder="Unit" required>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" type="text" name="street" id="street" value="<%= user.street %>"
+                  placeholder="Street" required>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <div class="row">
+              <div class="col-md-4 ">
+                <input class="form-control" type="city" name="city" id="unit" value="<%= user.city %>"
+                  placeholder="City" required>
+              </div>
+              <div class="col-md-4">
+                <select class="form-select" aria-label="Default select example" name="province" required>
+                  <option selected value="">Province</option>
+                  <option value="AB">Alberta</option>
+                  <option value="BC">British Columbia</option>
+                  <option value="MB">Manitoba</option>
+                  <option value="NB">New Brunswick</option>
+                  <option value="NL">Newfoundland and Labrador</option>
+                  <option value="NS">Nova Scotia</option>
+                  <option value="NT">Northwest Territories</option>
+                  <option value="NU">Nunavut</option>
+                  <option selected value="ON">Ontario</option>
+                  <option value="PE">Prince Edward Island</option>
+                  <option value="QC">Quebec</option>
+                  <option value="SK">Saskatchewan</option>
+                  <option value="YT">Yukon</option>
+                </select>
+
+              </div>
+              <div class="col-md-4 ">
+                <input class="form-control" type="zipcode" name="zipcode" value="<%= user.zipcode %>" id="zipcode"
+                  placeholder="Zipcode" required>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+          <div class="text-end mt-3">
+            <button id="submitButton" type="submit" class="btn btn-primary">Update</button>
+            <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo fa-lg"></i>
+              Cancel</button>
+          </div>
+        </form>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

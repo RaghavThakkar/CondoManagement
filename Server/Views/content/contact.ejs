@@ -1,163 +1,61 @@
+<div class="container">
+<div class="row">
+    <div class="offset-md-3 col-md-6 col-sm-12 mt-5">
+          <div class="login bg-light " id="contentArea">
+              <h1 class="display-4">Contact US</h1>
 
-<form class="row g-1">
+            
 
-  <div class="col-md-6">
-    <label 
-	for="validationDefault01" 
-	class="form-label"
-	style="color:#FFF;"
-	>
-	First name
-	</label>
-    <input 
-	placeholder="First Name"
-	type="text" 
-	class="form-control" 
-	id="validationDefault01" 
-	value="" 
-	required
-	>
-  </div>
+              <form method="POST" id="registerForm" novalidate>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <input class="form-control" type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-6">
+                      <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <input type="email" class="form-control" id="email" name="email" required
+                      value="" placeholder="Email Address">
+                    </div>
+                  </div>
+                </div>
 
-  <div class="col-md-6">
-    <label 
-	for="validationDefault02" 
-	class="form-label"
-	style="color:#FFF;"
-	>
-	Last name
-	</label>
-    <input 
-	placeholder="Last Name"
-	type="text" 
-	class="form-control" 
-	id="validationDefault02" 
-	value="" 
-	required
-	>
-  </div>
+				<div class="form-group mt-3">
+					<div class="row">
+					  <div class="col-md-12">
+						<input type="number" class="form-control" id="phone" name="phone" required
+						value="" placeholder="Phone Number">
+					  </div>
+					</div>
+				  </div>
 
-  <div class="col-md-12">
-    <label 
-	for="validationDefault03" 
-	class="form-label"
-	style="color:#FFF;"
-	>
-	Phone Number
-	</label>
-    <input 
-	type="text" 
-	class="form-control" 
-	id="validationDefault03" 
-	required
-	>
-  </div>
-
-   <div class="col-md-12">
-    <label 
-	for="validationDefault03" 
-	class="form-label"
-	style="color:#FFF;"
-	>
-	Email
-	</label>
-    <input 
-	placeholder="Please enter your email, so we can follow up with you"
-	type="text" 
-	class="form-control" 
-	id="validationDefault03" 
-	required
-	>
-  </div>
-
-  <div class="col-md-12">
-  <label
-  for="validationDefault04" 
-	class="form-label"
-	style="color:#FFF;"
-  >
-  Choose Service
-  </label>
-  <select
-  class="form-select" 
-	id="validationDefault04" 
-	required
-  >
-  <option
-  select
-  disabled
-  value=""
-  >
-  Choose..
-  </option>
-<option> 1 </option>
-  </select>
-   </div>
-
-   <div class="col-md-12">
-  <label
-  for="validationDefault04" 
-	class="form-label"
-	style="color:#FFF;"
-  >
-  What kind of user are you?
-  </label>
-  <select
-  class="form-select" 
-	id="validationDefault04" 
-	required
-  >
-  <option
-  select
-  disabled
-  value=""
-  >
-  Choose..
-  </option>
-<option> Condo Owner </option>
-  </select>
-   </div>
-
-    <div class="mb-3">
-    <label 
-	for="validationTextarea" 
-	class="form-label"
-	style="color:#FFF;"
-	>
-	Textarea
-	</label>
-    <textarea 
-	class="form-control" 
-	id="validationTextarea"
-	 placeholder="Required example textarea" 
-	 required
-	 >
-	 </textarea>
-    <div 
-	class="invalid-feedback"
-	>
-      Please enter a message in the textarea.
+				  <div class="form-group mt-3">
+					<div class="row">
+					  <div class="col-md-12">
+						  <label>Description</label>
+						  <textarea id="description" class="form-control" placeholder="Enter Description" name="description" rows="4" >
+							
+						  </textarea>
+					  </div>
+					</div>
+				  </div>
+                 
+                                                    
+                <div class="text-end mt-3">
+                  <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                  <button id="cancelButton" type="reset" class="btn btn-warning"><i class="fas fa-undo fa-lg"></i> Reset</button>
+                </div>
+              </form>
+             
+              
+          </div>
+         
     </div>
-  </div>
-
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-      <label 
-	  class="form-check-label" 
-	  for="invalidCheck2"
-	  	style="color:#FFF;"
-	  >
-        Agree to terms and conditions
-      </label>
-    </div>
-  </div>
- 
-  <div class="col-12">
-    <button 
-	class="btn btn-primary" 
-	type="submit">
-	Submit form
-	</button>
-  </div>
-</form>
+</div>
+</div>

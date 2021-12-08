@@ -7,7 +7,12 @@ const UserSchema = new Schema({
     firstName: String,
     lastName: String,
     type: String,
-    emailAddress: String,
+    email: String,
+    unit: String,
+    city: String,
+    province: String,
+    street: String,
+    zipcode: String,
     phone: String,
     username: String,
     displayName: String,
@@ -31,13 +36,18 @@ declare global {
     export type UserDocument = mongoose.Document & {
         _id: String,       //*NOTE* - this id attribute is different than the UserSchema above. It is string instead of number. modify if issues occur.
         firstName: String,
-    lastName: String,
-    type: String,
-    emailAddress: String,
-    phone: String,
-    username: String,
-    displayName: String,
-        
+        lastName: String,
+        type: String,
+        emailAddress: String,
+        unit: String,
+        city: String,
+        province: String,
+        street: String,
+        zipcode: String,
+        phone: String,
+        username: String,
+        displayName: String,
+
     }
 }
 export default Model;

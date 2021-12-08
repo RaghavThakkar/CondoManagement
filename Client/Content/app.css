@@ -136,3 +136,7 @@ body {
     top: -31px;
     display: none;
 }
+.account-name{
+    color: white;
+    text-decoration: none;
+  }
