@@ -6,11 +6,7 @@ import User from '../Models/user';
 import { UserDisplayName } from '../Util';
 import Announcement from '../Models/announcement';
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
-
-
     try {
-
-
         const bookingList = await Booking.find(
             { 'userId': UserDisplayName(req) }).lean().exec();
         const announcementList = await Announcement.find();
@@ -27,7 +23,6 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
         console.error(err);
         res.end(err);
     }
-
 }
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {

@@ -46,14 +46,16 @@
            <a class="nav-link" id="contact" href="/contact"> <i class="fas fa-phone fa-lg"> </i> Contact</a>
            <% } %>
          </li>
-
+         <% if(displayName) { %> 
          <li class="nav-item">
            <a class="nav-link" href="/announcement"><i class="far fa-bell"></i></i> Announcements</a>
          </li>
-             
-             <li class="nav-item">
+         <%}%>
+        <% if(displayName) { %>
+        <li class="nav-item">
            <a class="nav-link" href="/workorder"><i class="fas fa-cogs fa-lg"></i> Work Orders</a>
          </li>
+         <%}%>
 
          <% if(displayName) { %>
          <li class="nav-item">

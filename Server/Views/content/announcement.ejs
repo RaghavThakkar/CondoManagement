@@ -13,6 +13,7 @@
           </div>
             <p class="mb-0">
               <%= announcement[i].content%>
+              <% if(displayName) { %></i>
               <div class="d-flex flex-row-reverse">
                 <div class ="p-2">
                   <a href="/announcement/edit/<%= announcement[i]._id%>"><i class="fas fa-edit"></i></a>  
@@ -21,7 +22,7 @@
                   <a href="/announcement/delete/<%= announcement[i]._id%>"><i class="fas fa-trash"></i></a>    
                 </div>
               </div>  
-                                            
+              <%}%>                  
             </p>
             
               
