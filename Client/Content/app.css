@@ -12,6 +12,12 @@ body {
         background-size: cover;    
         
 }
+.jumbo {
+    color:rgb(255, 255, 255);
+    background-size: cover;    
+    background-image: linear-gradient(rgba(12, 12, 12, 0.5), rgba(11, 12, 12, 0.5)), url(../Assets/images/frontdesk.jpg);
+    background-position: center;
+}
 
 /* img {
       width: 100%;
