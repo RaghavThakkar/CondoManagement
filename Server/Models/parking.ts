@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const parkingSchema = new Schema({
-    userId: Number,
+    userId: String,
     parkingNumber: Number,
     fromTime: Date,
+    unit: String,
     toTime: Date,
     date: Date,
     firstName: String,
@@ -12,7 +13,7 @@ const parkingSchema = new Schema({
     email: String,
     phone: Number,
     originalAddress: String
-    
+
 }, {
     collection: "parking"
 });

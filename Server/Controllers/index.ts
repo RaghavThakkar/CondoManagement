@@ -5,7 +5,8 @@ import nodemailer from 'nodemailer';
 import Booking from '../Models/booking';
 import Announcement from '../Models/announcement';
 import User from '../Models/user';
-import { UserDisplayName, UserUserName, UserId } from '../Util';
+import Parking from '../Models/parking';
+import { UserDisplayName, CurrentUser, UserId, Passport } from '../Util';
 
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
 
@@ -165,7 +166,7 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
 
         // after successful registration - login the user
         return passport.authenticate('local')(req, res, () => {
-            return res.redirect('/contact-list');
+            return res.redirect('/');
         });
     });
 }
@@ -238,5 +239,101 @@ export async function ProcessProfilePage(req: Request, res: Response, next: Next
     // find the customer item via db.customer.update({"_id":id}) and then update
 
 
+
+}
+
+
+export async function ChangePassWordPage(req: Request, res: Response, next: NextFunction) {
+
+    try {
+        console.log(CurrentUser(req));
+        res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
+export async function DisplayParkingPermit(req: Request, res: Response, next: NextFunction) {
+
+    try {
+        console.log(CurrentUser(req));
+        res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
+
+export async function ProcessChangePassword(req: Request, res: Response, next: NextFunction) {
+
+    try {
+        if (req.body.newpassword != req.body.renewpassword) {
+            req.flash('changepasswordMessage', 'Password does not match.');
+            res.render('index', { title: 'Change Password', page: 'changepassword', displayName: UserDisplayName(req) });
+            return;
+        }
+        User.findOne({ "email": UserId(req) }, {}, {}, (err, user) => {
+
+        });
+        return res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
+
+export function ProcessParkingPermit(req: Request, res: Response, next: NextFunction): void {
+    // instantiate a new User Object
+    let parking = new Parking
+        ({
+            "firstName": req.body.FirstName,
+            "lastName": req.body.LastName,
+            "phone": req.body.phone,
+            "unit": req.body.condounit,
+            "email": req.body.email,
+            "userId": UserId(req),
+            "parkingNumber": 1,
+            "fromTime": req.body.fromtime,
+            "toTime": req.body.totime,
+            "date": req.body.date,
+            "originalAddress": req.body.unit + " " + req.body.street + " "
+                + req.body.city + req.body.province + req.body.zipcode;
+
+        });
+
+    Parking.create(parking, (err) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        res.redirect('/');
+    });
 
 }

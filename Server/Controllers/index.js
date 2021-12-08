@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
 const announcement_1 = __importDefault(require("../Models/announcement"));
 const user_1 = __importDefault(require("../Models/user"));
+const parking_1 = __importDefault(require("../Models/parking"));
 const Util_1 = require("../Util");
 function DisplayHomePage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -153,7 +154,7 @@ function ProcessRegisterPage(req, res, next) {
             return res.redirect('/register');
         }
         return passport_1.default.authenticate('local')(req, res, () => {
-            return res.redirect('/contact-list');
+            return res.redirect('/');
         });
     });
 }
@@ -212,4 +213,73 @@ function ProcessProfilePage(req, res, next) {
     });
 }
 exports.ProcessProfilePage = ProcessProfilePage;
+function ChangePassWordPage(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(Util_1.CurrentUser(req));
+            res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ChangePassWordPage = ChangePassWordPage;
+function DisplayParkingPermit(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(Util_1.CurrentUser(req));
+            res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayParkingPermit = DisplayParkingPermit;
+function ProcessChangePassword(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (req.body.newpassword != req.body.renewpassword) {
+                req.flash('changepasswordMessage', 'Password does not match.');
+                res.render('index', { title: 'Change Password', page: 'changepassword', displayName: Util_1.UserDisplayName(req) });
+                return;
+            }
+            user_1.default.findOne({ "email": Util_1.UserId(req) }, {}, {}, (err, user) => {
+            });
+            return res.redirect('/');
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ProcessChangePassword = ProcessChangePassword;
+function ProcessParkingPermit(req, res, next) {
+    let parking = new parking_1.default({
+        "firstName": req.body.FirstName,
+        "lastName": req.body.LastName,
+        "phone": req.body.phone,
+        "unit": req.body.condounit,
+        "email": req.body.email,
+        "userId": Util_1.UserId(req),
+        "parkingNumber": 1,
+        "fromTime": req.body.fromtime,
+        "toTime": req.body.totime,
+        "date": req.body.date,
+        "originalAddress": req.body.unit + " " + req.body.street + " "
+            + req.body.city + req.body.province + req.body.zipcode
+    });
+    parking_1.default.create(parking, (err) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        res.redirect('/');
+    });
+}
+exports.ProcessParkingPermit = ProcessParkingPermit;
 //# sourceMappingURL=index.js.map

@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const parkingSchema = new Schema({
-    userId: Number,
+    userId: String,
     parkingNumber: Number,
-    fromTime: Date,
-    toTime: Date,
+    fromTime: String,
+    unit: String,
+    toTime: String,
     date: Date,
     firstName: String,
     lastName: String,

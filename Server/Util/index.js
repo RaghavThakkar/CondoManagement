@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthGuard = exports.UserId = exports.UserUserName = exports.UserDisplayName = void 0;
+exports.AuthGuard = exports.CurrentUser = exports.UserId = exports.UserUserName = exports.UserDisplayName = void 0;
 function UserDisplayName(req) {
     if (req.user) {
         let user = req.user;
@@ -25,6 +25,14 @@ function UserId(req) {
     return '';
 }
 exports.UserId = UserId;
+function CurrentUser(req) {
+    if (req.user) {
+        let user = req.user;
+        return user;
+    }
+    return null;
+}
+exports.CurrentUser = CurrentUser;
 function AuthGuard(req, res, next) {
     if (!req.isAuthenticated()) {
         return res.redirect('/login');

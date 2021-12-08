@@ -2,13 +2,13 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProfilePage, DisplayProjectPage, DisplayRegisterPage, DisplayServicesPage, ProcessContactPage, ProcessLoginPage, ProcessLogoutPage, ProcessProfilePage, ProcessRegisterPage } from '../Controllers/index'
+import { ChangePassWordPage, DisplayParkingPermit, DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProfilePage, DisplayProjectPage, DisplayRegisterPage, DisplayServicesPage, ProcessContactPage, ProcessLoginPage, ProcessLogoutPage, ProcessProfilePage, ProcessRegisterPage, ProcessParkingPermit } from '../Controllers/index'
 import { AuthGuard } from '../Util'
 /* GET home page. */
-router.get('/', AuthGuard, DisplayHomePage);
+router.get('/', DisplayHomePage);
 
 /* GET home page. */
-router.get('/home', AuthGuard, DisplayHomePage);
+router.get('/home', DisplayHomePage);
 
 /* GET about page. */
 router.get('/about', DisplayAboutPage);
@@ -47,6 +47,11 @@ router.get('/profile', DisplayProfilePage);
 /* Post register page.*/
 router.post('/profile', ProcessProfilePage);
 
+router.get('/changePassword', ChangePassWordPage);
+
+router.get('/parkingpermit', DisplayParkingPermit);
+
+router.post('/parkingpermit', ProcessParkingPermit);
 
 module.exports = router;
 

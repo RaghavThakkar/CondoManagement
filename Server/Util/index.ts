@@ -27,6 +27,14 @@ export function UserId(req: Request): string {
 }
 
 
+export function CurrentUser(req: Request): UserDocument {
+    if (req.user) {
+        let user = req.user as UserDocument;
+        return user;
+    }
+    return null;
+}
+
 export function AuthGuard(req: Request, res: Response, next: NextFunction): void {
     if (!req.isAuthenticated()) {
         return res.redirect('/login');
