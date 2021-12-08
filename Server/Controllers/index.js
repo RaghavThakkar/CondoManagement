@@ -270,8 +270,7 @@ function ProcessParkingPermit(req, res, next) {
         "fromTime": req.body.fromtime,
         "toTime": req.body.totime,
         "date": req.body.date,
-        "originalAddress": req.body.unit + " " + req.body.street + " "
-            + req.body.city + req.body.province + req.body.zipcode
+        "originalAddress": req.body.unit + " " + req.body.street + " " + req.body.city + req.body.province + req.body.zipcode
     });
     parking_1.default.create(parking, (err) => {
         if (err) {

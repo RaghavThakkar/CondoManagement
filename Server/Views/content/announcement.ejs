@@ -1,18 +1,37 @@
-<div style='color:white;'>
+<div style='color:white; margin:  0 0 70px 0;'>
     <h1>Announcement</h1>
     <% if(displayName) { %>
     <a href='/announcement/add'><button type="button" class="btn btn-primary" style="width: 150px;margin: 20px 0px;"><i class="fas fa-plus" style="margin:5px;"></i>New Memo</button></a>
     <%}%>
-    <div>
-        <% for(let i=announcement.length-1; i>=0; i--){%>
+    <div class="list-group">
+      <% let a =1%>
+        <% for(let i=announcement.length-1; i>=0; i--){%> 
+          <div class="list-group-item list-group-item-action flex-column align-items-start ">
+          <div class="d-flex w-100 justify-content-between list-group-item-primary">
+            <h5 class="mb-1"><%= announcement[i].title%></h5>
+            <small><%= announcement[i].date.toLocaleString()%></small>
+          </div>
+            <p class="mb-0">
+              <%= announcement[i].content%>
+              <% if(displayName) { %></i>
+              <div class="d-flex flex-row-reverse">
+                <div class ="p-2">
+                  <a href="/announcement/edit/<%= announcement[i]._id%>"><i class="fas fa-edit"></i></a>  
+                </div>
+                <div class="p-2">
+                  <a href="/announcement/delete/<%= announcement[i]._id%>"><i class="fas fa-trash"></i></a>    
+                </div>
+              </div>  
+              <%}%>                  
+            </p>
+            
+              
+               
+          </div>
           
-       <h4><%= i+1 +". "%><%= announcement[i].title%></h4>
-        <p><%= announcement[i].content%></p>
-        <p>Date: <%= announcement[i].date.toLocaleString()%></p>
-        <% if(displayName) { %>
-        <a href="/announcement/edit/<%= announcement[i]._id%>" class="btn btn-primary btn-sm edit">Edit</a>
-        <a href="/announcement/delete/<%= announcement[i]._id%>" class="btn btn-danger btn-sm danger">Delete</a>
-        <%}%>
-        <%} %>
+          <%}%> 
     </div>
+
+    
+        
 </div>

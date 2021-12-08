@@ -6,7 +6,7 @@ import Booking from '../Models/booking';
 import Announcement from '../Models/announcement';
 import User from '../Models/user';
 import Parking from '../Models/parking';
-import { UserDisplayName, CurrentUser, UserId, Passport } from '../Util';
+import { UserDisplayName, CurrentUser, UserId } from '../Util';
 
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
 
@@ -31,7 +31,6 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
         console.error(err);
         res.end(err);
     }
-
 }
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {
@@ -61,8 +60,8 @@ export async function ProcessContactPage(req: Request, res: Response, next: Next
     let transporter = nodemailer.createTransport({
         service: 'gmail', // true for 465, false for other ports
         auth: {
-            user: 'latestdummy@gmail.com', // 
-            pass: 'latest@123', // 
+            user: 'latestdummy@gmail.com', //
+            pass: 'latest@123', //
         }
     });
 
@@ -323,8 +322,7 @@ export function ProcessParkingPermit(req: Request, res: Response, next: NextFunc
             "fromTime": req.body.fromtime,
             "toTime": req.body.totime,
             "date": req.body.date,
-            "originalAddress": req.body.unit + " " + req.body.street + " "
-                + req.body.city + req.body.province + req.body.zipcode;
+            "originalAddress": req.body.unit + " " + req.body.street + " "+ req.body.city + req.body.province + req.body.zipcode
 
         });
 

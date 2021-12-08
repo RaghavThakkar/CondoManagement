@@ -8,9 +8,9 @@ const Schema = mongoose_1.default.Schema;
 const parkingSchema = new Schema({
     userId: String,
     parkingNumber: Number,
-    fromTime: String,
+    fromTime: Date,
     unit: String,
-    toTime: String,
+    toTime: Date,
     date: Date,
     firstName: String,
     lastName: String,
