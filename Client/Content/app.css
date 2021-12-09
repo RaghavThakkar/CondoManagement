@@ -3,17 +3,19 @@
 body {
     padding: 0;
     margin: 0;
+    background-repeat: repeat-y;
     background-image:
         linear-gradient(to bottom, rgba(12, 12, 12, 0.6), rgba(11, 12, 12, 0.6)),
         url(../Assets/images/background-lg.jpg);
-       -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
 }
+
 .jumbo {
-    color:rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     background-size: cover;
     background-image: linear-gradient(rgba(12, 12, 12, 0.5), rgba(11, 12, 12, 0.5)), url(../Assets/images/frontdesk.jpg);
     background-position: center;
@@ -148,8 +150,8 @@ body {
     top: -31px;
     display: none;
 }
-.account-name{
+
+.account-name {
     color: white;
     text-decoration: none;
-  }
-
+}

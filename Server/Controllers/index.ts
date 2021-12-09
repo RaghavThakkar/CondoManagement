@@ -13,7 +13,6 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
 
     try {
 
-
         const bookingList = await Booking.find(
             { 'userId': UserDisplayName(req) }).limit(5).lean().exec();
 
