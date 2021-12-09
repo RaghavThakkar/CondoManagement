@@ -12,7 +12,7 @@ function DisplayWorkOrderPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.render('index', { title: 'Work Order', page: 'workorder', workOrder: workOrderList, displayName: Util_1.UserDisplayName(req) });
+        res.render('index', { title: 'Work Order', page: 'workorder', workOrder: workOrderList, displayName: (0, Util_1.UserDisplayName)(req) });
     }).sort({ "name": 1 });
 }
 exports.DisplayWorkOrderPage = DisplayWorkOrderPage;
@@ -23,7 +23,7 @@ function DisplayEditWorkOrderPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.render('index', { title: 'Edit', page: 'workorder-edit', workOrder: item, displayName: Util_1.UserDisplayName(req) });
+        res.render('index', { title: 'Edit', page: 'workorder-edit', workOrder: item, displayName: (0, Util_1.UserDisplayName)(req) });
     });
 }
 exports.DisplayEditWorkOrderPage = DisplayEditWorkOrderPage;

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
@@ -23,7 +23,7 @@ const Util_1 = require("../Util");
 function DisplayHomePage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const bookingList = yield booking_1.default.find({ 'userId': Util_1.UserDisplayName(req) }).limit(5).lean().exec();
+            const bookingList = yield booking_1.default.find({ 'userId': (0, Util_1.UserDisplayName)(req) }).limit(5).lean().exec();
             const announcementsList = yield announcement_1.default.find().limit(5).lean().exec();
             console.log(bookingList);
             res.render('index', {
@@ -31,7 +31,7 @@ function DisplayHomePage(req, res, next) {
                 page: 'main',
                 items: bookingList,
                 announcementsList: announcementsList,
-                displayName: Util_1.UserDisplayName(req)
+                displayName: (0, Util_1.UserDisplayName)(req)
             });
         }
         catch (err) {
@@ -42,15 +42,19 @@ function DisplayHomePage(req, res, next) {
 }
 exports.DisplayHomePage = DisplayHomePage;
 function DisplayAboutPage(req, res, next) {
-    res.render('index', { title: 'About Us', page: 'about', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'About Us', page: 'about', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayAboutPage = DisplayAboutPage;
+function DisplayCondoUnits(req, res, next) {
+    res.render('index', { title: 'Condo Units', page: 'condoUnits', displayName: (0, Util_1.UserDisplayName)(req) });
+}
+exports.DisplayCondoUnits = DisplayCondoUnits;
 function DisplayProjectPage(req, res, next) {
-    res.render('index', { title: 'Our Projects', page: 'projects', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Our Projects', page: 'projects', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayProjectPage = DisplayProjectPage;
 function DisplayContactPage(req, res, next) {
-    res.render('index', { title: 'Contact Us', page: 'contact', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Contact Us', page: 'contact', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayContactPage = DisplayContactPage;
 function ProcessContactPage(req, res, next) {
@@ -92,12 +96,12 @@ function ProcessContactPage(req, res, next) {
 }
 exports.ProcessContactPage = ProcessContactPage;
 function DisplayServicesPage(req, res, next) {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Our Services', page: 'services', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayServicesPage = DisplayServicesPage;
 function DisplayLoginPage(req, res, next) {
     if (!req.user) {
-        return res.render('index', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: Util_1.UserDisplayName(req) });
+        return res.render('index', { title: 'Login', page: 'login', messages: req.flash('loginMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
     return res.redirect('/home');
 }
@@ -124,7 +128,7 @@ function ProcessLoginPage(req, res, next) {
 exports.ProcessLoginPage = ProcessLoginPage;
 function DisplayRegisterPage(req, res, next) {
     if (!req.user) {
-        return res.render('index', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: Util_1.UserDisplayName(req) });
+        return res.render('index', { title: 'Register', page: 'register', messages: req.flash('registerMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
     }
     return res.redirect('/contact-list');
 }
@@ -165,24 +169,24 @@ function ProcessLogoutPage(req, res, next) {
 }
 exports.ProcessLogoutPage = ProcessLogoutPage;
 function DisplayWorkOrderPage(req, res, next) {
-    res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Maintenance Work Orders', page: 'workorder', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayWorkOrderPage = DisplayWorkOrderPage;
 function DisplayProfilePage(req, res, next) {
-    user_1.default.findOne({ "email": Util_1.UserId(req) }, {}, {}, (err, UserItems) => {
+    user_1.default.findOne({ "email": (0, Util_1.UserId)(req) }, {}, {}, (err, UserItems) => {
         if (err) {
             console.error(err);
             return res.redirect('/error');
         }
         console.log(UserItems);
-        res.render('index', { title: 'Profile', page: 'profile', user: UserItems, displayName: Util_1.UserDisplayName(req) });
+        res.render('index', { title: 'Profile', page: 'profile', user: UserItems, displayName: (0, Util_1.UserDisplayName)(req) });
     });
 }
 exports.DisplayProfilePage = DisplayProfilePage;
 function ProcessProfilePage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const currentUser = yield user_1.default.findOne({ "email": Util_1.UserId(req) }).lean().exec();
+            const currentUser = yield user_1.default.findOne({ "email": (0, Util_1.UserId)(req) }).lean().exec();
             let updatedProfile = new user_1.default({
                 "_id": currentUser._id,
                 "firstName": req.body.FirstName,
@@ -216,8 +220,8 @@ exports.ProcessProfilePage = ProcessProfilePage;
 function ChangePassWordPage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(Util_1.CurrentUser(req));
-            res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+            console.log((0, Util_1.CurrentUser)(req));
+            res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
         }
         catch (err) {
             console.error(err);
@@ -229,8 +233,8 @@ exports.ChangePassWordPage = ChangePassWordPage;
 function DisplayParkingPermit(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(Util_1.CurrentUser(req));
-            res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+            console.log((0, Util_1.CurrentUser)(req));
+            res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: (0, Util_1.UserDisplayName)(req) });
         }
         catch (err) {
             console.error(err);
@@ -244,10 +248,10 @@ function ProcessChangePassword(req, res, next) {
         try {
             if (req.body.newpassword != req.body.renewpassword) {
                 req.flash('changepasswordMessage', 'Password does not match.');
-                res.render('index', { title: 'Change Password', page: 'changepassword', displayName: Util_1.UserDisplayName(req) });
+                res.render('index', { title: 'Change Password', page: 'changepassword', displayName: (0, Util_1.UserDisplayName)(req) });
                 return;
             }
-            user_1.default.findOne({ "email": Util_1.UserId(req) }, {}, {}, (err, user) => {
+            user_1.default.findOne({ "email": (0, Util_1.UserId)(req) }, {}, {}, (err, user) => {
             });
             return res.redirect('/');
         }
@@ -265,7 +269,7 @@ function ProcessParkingPermit(req, res, next) {
         "phone": req.body.phone,
         "unit": req.body.condounit,
         "email": req.body.email,
-        "userId": Util_1.UserId(req),
+        "userId": (0, Util_1.UserId)(req),
         "parkingNumber": 1,
         "fromTime": req.body.fromtime,
         "toTime": req.body.totime,
