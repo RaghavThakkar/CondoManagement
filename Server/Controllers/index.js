@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
@@ -49,6 +49,10 @@ function DisplayCondoUnits(req, res, next) {
     res.render('index', { title: 'Condo Units', page: 'condoUnits', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayCondoUnits = DisplayCondoUnits;
+function DisplayMaintenanceRequest(req, res, next) {
+    res.render('index', { title: 'Maintenance Request', page: 'maintenanceRequest', displayName: (0, Util_1.UserDisplayName)(req) });
+}
+exports.DisplayMaintenanceRequest = DisplayMaintenanceRequest;
 function DisplayProjectPage(req, res, next) {
     res.render('index', { title: 'Our Projects', page: 'projects', displayName: (0, Util_1.UserDisplayName)(req) });
 }

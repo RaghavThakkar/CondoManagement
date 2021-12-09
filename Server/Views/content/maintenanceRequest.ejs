@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row">
+      <div class="offset-md-3 col-md-6 col-sm-12 mt-5">
+        <div class="login bg-light" id="contentArea">
+          <h1 class="display-4">Maintenance Request</h1>
+  
+          <form method="POST" class="row g-3 needs-validation" novalidate>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="FirstName"
+                    id="firstName"
+                    placeholder="First Name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="LastName"
+                    id="lastName"
+                    placeholder="Last Name"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="unit#"
+                    name="unit#"
+                    required
+                    placeholder="Unit #"
+                  />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group mt-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="date"
+                    name="date"
+                    required
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group mt-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="issue"
+                    required
+                  >
+                    <option selected value="">Select an Issue</option>
+                    <option value="AB">Amenity</option>
+                    <option value="BC">Electrical</option>
+                    <option value="MB">Plumbing</option>
+                    <option value="NB">Heating / Air Conditioning</option>
+                    <option value="NL">Pool</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <textarea class="form-control" id="validationTextarea" placeholder="Brief Description" required></textarea>
+            </div>
+  
+            <div class="text-end mt-3">
+              <button id="submitButton" type="submit" class="btn btn-primary">
+               Submit
+              </button>
+              <button id="cancelButton" type="reset" class="btn btn-warning">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

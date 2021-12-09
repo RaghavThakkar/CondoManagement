@@ -41,6 +41,10 @@ export function DisplayCondoUnits(req: Request, res: Response, next: NextFunctio
     res.render('index', { title: 'Condo Units', page: 'condoUnits', displayName: UserDisplayName(req) });
 }
 
+export function DisplayMaintenanceRequest(req: Request, res: Response, next: NextFunction): void {
+    res.render('index', { title: 'Maintenance Request', page: 'maintenanceRequest', displayName: UserDisplayName(req) });
+}
+
 export function DisplayProjectPage(req: Request, res: Response, next: NextFunction): void {
     res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName(req) });
 }
