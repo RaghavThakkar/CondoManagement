@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     id: Number,
     firstName: String,
     lastName: String,
+    password: String,
     type: String,
     email: String,
     unit: String,
@@ -32,6 +33,6 @@ const UserSchema = new Schema({
     collection: "users"
 });
 UserSchema.plugin(passport_local_mongoose_1.default);
-const Model = mongoose_1.default.model("User", UserSchema);
+const Model = module.exports = mongoose_1.default.model("User", UserSchema);
 exports.default = Model;
 //# sourceMappingURL=user.js.map

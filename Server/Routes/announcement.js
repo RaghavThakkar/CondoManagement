@@ -7,10 +7,11 @@ const express_1 = __importDefault(require("express"));
 const announcement_1 = require("../Controllers/announcement");
 const router = express_1.default.Router();
 exports.default = router;
-router.get('/', announcement_1.DisplayAnnouncementPage);
-router.get('/edit/:id', announcement_1.DisplayEditAnnouncementPage);
-router.get('/add', announcement_1.DisplayAddAnnouncementPage);
-router.post('/add', announcement_1.ProcessAddAnnouncementPage);
-router.post('/edit/:id', announcement_1.ProcessEditAnnouncementPage);
-router.get('/delete/:id', announcement_1.ProcessDeleteAnnouncementPage);
+const Util_1 = require("../Util");
+router.get('/', Util_1.AuthGuard, announcement_1.DisplayAnnouncementPage);
+router.get('/edit/:id', Util_1.AuthGuard, announcement_1.DisplayEditAnnouncementPage);
+router.get('/add', Util_1.AuthGuard, announcement_1.DisplayAddAnnouncementPage);
+router.post('/add', Util_1.AuthGuard, announcement_1.ProcessAddAnnouncementPage);
+router.post('/edit/:id', Util_1.AuthGuard, announcement_1.ProcessEditAnnouncementPage);
+router.get('/delete/:id', Util_1.AuthGuard, announcement_1.ProcessDeleteAnnouncementPage);
 //# sourceMappingURL=announcement.js.map

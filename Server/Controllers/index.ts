@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from 'express';
-
 import passport from 'passport';
 import nodemailer from 'nodemailer';
 import Booking from '../Models/booking';
@@ -7,6 +6,7 @@ import Announcement from '../Models/announcement';
 import Maintenance from '../Models/maintenance';
 import Renovation from '../Models/renovation';
 import User from '../Models/user';
+import Condo from '../Models/condo';
 import Parking from '../Models/parking';
 import { UserDisplayName, CurrentUser, UserId, UserUserName } from '../Util';
 
@@ -38,8 +38,85 @@ export function DisplayAboutPage(req: Request, res: Response, next: NextFunction
     res.render('index', { title: 'About Us', page: 'about', displayName: UserDisplayName(req) });
 }
 
-export function DisplayCondoUnits(req: Request, res: Response, next: NextFunction): void {
-    res.render('index', { title: 'Condo Units', page: 'condoUnits', displayName: UserDisplayName(req) });
+export async function DisplayCondoUnits(req: Request, res: Response, next: NextFunction) {
+    try {
+
+        const list = await Condo.find({"userId":UserId(req)}).lean().exec();
+       res.render('index', { title: 'Condo Units', page: 'condoUnits',list:list, displayName: UserDisplayName(req) });
+} catch (err) {
+    console.error(err);
+    res.end(err);
+}
+}
+
+export async function DisplayCreateCondoUnits(req: Request, res: Response, next: NextFunction) {
+    try {
+        let id = req.params.id;
+     if(id=="1"){
+
+       const condo =new Condo();
+       res.render('index', { title: 'Condo Units', page: 'condoCreate',item:condo, displayName: UserDisplayName(req) });
+        
+    }else{
+            const condo = await Condo.findById(id).lean().exec();
+            res.render('index', { title: 'Condo Units', page: 'condoCreate',item:condo, displayName: UserDisplayName(req) });
+       
+    }
+
+} catch (err) {
+    console.error(err);
+    res.end(err);
+}
+}
+
+export async function ProcessCreateCondoUnits(req: Request, res: Response, next: NextFunction) {
+    try {
+        let id = req.params.id;
+     if(id=="1"){
+
+       const condo =new Condo ({
+        "unitNumber": req.body.unit,
+        "type": req.body.type,
+        "address": req.body.address,
+        "description": req.body.description,
+        "userId":UserId(req)
+    });
+
+  
+   let data= await Condo.create(condo);
+
+  
+
+       res.render('index', { title: 'Condo Units', page: 'condoCreate',item:condo, displayName: UserDisplayName(req) });
+       res.redirect('/condoUnits');
+    }else{
+        const condo =new Condo ({
+            "_id":id,
+            "unitNumber": req.body.unit,
+            "type": req.body.type,
+            "address": req.body.address,
+            "description": req.body.description,
+            "userId":UserId(req)
+        });
+
+        Condo.updateOne({ _id: id }, condo, {}, (err) => {
+            if (err) {
+                console.error(err);
+                return res.redirect('/error');
+            }
+
+            res.redirect('/condoUnits');
+        });
+           
+       
+    }
+
+    
+
+} catch (err) {
+    console.error(err);
+    res.end(err);
+}
 }
 
 export function DisplayMaintenanceRequest(req: Request, res: Response, next: NextFunction): void {
@@ -47,7 +124,7 @@ export function DisplayMaintenanceRequest(req: Request, res: Response, next: Nex
 }
 
 
-export async function DisplayMaintenanceRequestList(req: Request, res: Response, next: NextFunction): void {
+export async function DisplayMaintenanceRequestList(req: Request, res: Response, next: NextFunction) {
 
     try {
 
@@ -119,7 +196,7 @@ export async function ProcessMaintenanceRequest(req: Request, res: Response, nex
               console.log('success....' + data.response);
           }
       })
-      return res.redirect('/home');
+      return res.redirect('/thanks');
         
     } catch (error) {
         console.error(error);
@@ -338,8 +415,10 @@ export async function ProcessProfilePage(req: Request, res: Response, next: Next
 
 export async function ChangePassWordPage(req: Request, res: Response, next: NextFunction) {
 
+
     try {
-        console.log(CurrentUser(req));
+        var user=await User.find({"email":UserId(req)}).exec();
+        console.log(user);
         res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);
@@ -355,11 +434,34 @@ export async function ChangePassWordPage(req: Request, res: Response, next: Next
 
 
 }
+
+
+export async function ProcessChangePassWordPage(req: Request, res: Response, next: NextFunction) {
+
+
+    try {
+        var user=await User.find({"email":UserId(req)}).exec();
+      
+       user.updateAttribute('password', User.hashPassword(req.body.password), function(err, user) {
+      
+       });
+        return res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
 export async function DisplayParkingPermit(req: Request, res: Response, next: NextFunction) {
 
     try {
         console.log(CurrentUser(req));
-        res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+        res.render('index', { title: 'Parking Permit', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
     } catch (err) {
         console.error(err);
         res.end(err);
@@ -378,14 +480,7 @@ export async function DisplayParkingPermit(req: Request, res: Response, next: Ne
 export async function ProcessChangePassword(req: Request, res: Response, next: NextFunction) {
 
     try {
-        if (req.body.newpassword != req.body.renewpassword) {
-            req.flash('changepasswordMessage', 'Password does not match.');
-            res.render('index', { title: 'Change Password', page: 'changepassword', displayName: UserDisplayName(req) });
-            return;
-        }
-        User.findOne({ "email": UserId(req) }, {}, {}, (err, user) => {
-
-        });
+       
         return res.redirect('/');
     } catch (err) {
         console.error(err);
@@ -401,6 +496,18 @@ export async function ProcessChangePassword(req: Request, res: Response, next: N
 
 
 }
+
+
+export async function DisplayThankYou(req: Request, res: Response, next: NextFunction) {
+    try {
+        res.render('index', { title: 'thankyou', page: 'thankyou', messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+    
+    } catch (err) {
+      console.error(err);
+      res.end(err);
+    }
+  }
+  
 
 export function ProcessParkingPermit(req: Request, res: Response, next: NextFunction): void {
     // instantiate a new User Object
@@ -425,7 +532,7 @@ export function ProcessParkingPermit(req: Request, res: Response, next: NextFunc
             console.log(err);
             res.end(err);
         }
-        res.redirect('/');
+        res.redirect('/thanks');
     });
 
 }
@@ -494,7 +601,7 @@ export function ProcessRenovations(req: Request, res: Response, next: NextFuncti
             console.log(err);
             res.end(err);
         }
-        res.redirect('/renovationList');
+        res.redirect('/thanks');
     });
 
 }

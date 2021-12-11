@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessRenovations = exports.DisplayCreateRenovations = exports.DisplayRenovations = exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.ProcessMaintenanceRequest = exports.DisplayMaintenanceRequestList = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessRenovations = exports.DisplayCreateRenovations = exports.DisplayRenovations = exports.ProcessParkingPermit = exports.DisplayThankYou = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ProcessChangePassWordPage = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.ProcessMaintenanceRequest = exports.DisplayMaintenanceRequestList = exports.DisplayMaintenanceRequest = exports.ProcessCreateCondoUnits = exports.DisplayCreateCondoUnits = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
@@ -20,6 +20,7 @@ const announcement_1 = __importDefault(require("../Models/announcement"));
 const maintenance_1 = __importDefault(require("../Models/maintenance"));
 const renovation_1 = __importDefault(require("../Models/renovation"));
 const user_1 = __importDefault(require("../Models/user"));
+const condo_1 = __importDefault(require("../Models/condo"));
 const parking_1 = __importDefault(require("../Models/parking"));
 const Util_1 = require("../Util");
 function DisplayHomePage(req, res, next) {
@@ -48,9 +49,79 @@ function DisplayAboutPage(req, res, next) {
 }
 exports.DisplayAboutPage = DisplayAboutPage;
 function DisplayCondoUnits(req, res, next) {
-    res.render('index', { title: 'Condo Units', page: 'condoUnits', displayName: Util_1.UserDisplayName(req) });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const list = yield condo_1.default.find({ "userId": Util_1.UserId(req) }).lean().exec();
+            res.render('index', { title: 'Condo Units', page: 'condoUnits', list: list, displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
 }
 exports.DisplayCondoUnits = DisplayCondoUnits;
+function DisplayCreateCondoUnits(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            if (id == "1") {
+                const condo = new condo_1.default();
+                res.render('index', { title: 'Condo Units', page: 'condoCreate', item: condo, displayName: Util_1.UserDisplayName(req) });
+            }
+            else {
+                const condo = yield condo_1.default.findById(id).lean().exec();
+                res.render('index', { title: 'Condo Units', page: 'condoCreate', item: condo, displayName: Util_1.UserDisplayName(req) });
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayCreateCondoUnits = DisplayCreateCondoUnits;
+function ProcessCreateCondoUnits(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let id = req.params.id;
+            if (id == "1") {
+                const condo = new condo_1.default({
+                    "unitNumber": req.body.unit,
+                    "type": req.body.type,
+                    "address": req.body.address,
+                    "description": req.body.description,
+                    "userId": Util_1.UserId(req)
+                });
+                let data = yield condo_1.default.create(condo);
+                res.render('index', { title: 'Condo Units', page: 'condoCreate', item: condo, displayName: Util_1.UserDisplayName(req) });
+                res.redirect('/condoUnits');
+            }
+            else {
+                const condo = new condo_1.default({
+                    "_id": id,
+                    "unitNumber": req.body.unit,
+                    "type": req.body.type,
+                    "address": req.body.address,
+                    "description": req.body.description,
+                    "userId": Util_1.UserId(req)
+                });
+                condo_1.default.updateOne({ _id: id }, condo, {}, (err) => {
+                    if (err) {
+                        console.error(err);
+                        return res.redirect('/error');
+                    }
+                    res.redirect('/condoUnits');
+                });
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ProcessCreateCondoUnits = ProcessCreateCondoUnits;
 function DisplayMaintenanceRequest(req, res, next) {
     res.render('index', { title: 'Maintenance Request', page: 'maintenanceRequest', displayName: Util_1.UserDisplayName(req) });
 }
@@ -118,7 +189,7 @@ function ProcessMaintenanceRequest(req, res, next) {
                     console.log('success....' + data.response);
                 }
             });
-            return res.redirect('/home');
+            return res.redirect('/thanks');
         }
         catch (error) {
             console.error(error);
@@ -298,7 +369,8 @@ exports.ProcessProfilePage = ProcessProfilePage;
 function ChangePassWordPage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(Util_1.CurrentUser(req));
+            var user = yield user_1.default.find({ "email": Util_1.UserId(req) }).exec();
+            console.log(user);
             res.render('index', { title: 'Change Password', page: 'changepassword', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {
@@ -308,11 +380,26 @@ function ChangePassWordPage(req, res, next) {
     });
 }
 exports.ChangePassWordPage = ChangePassWordPage;
+function ProcessChangePassWordPage(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            var user = yield user_1.default.find({ "email": Util_1.UserId(req) }).exec();
+            user.updateAttribute('password', user_1.default.hashPassword(req.body.password), function (err, user) {
+            });
+            return res.redirect('/');
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.ProcessChangePassWordPage = ProcessChangePassWordPage;
 function DisplayParkingPermit(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(Util_1.CurrentUser(req));
-            res.render('index', { title: 'Change Password', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+            res.render('index', { title: 'Parking Permit', page: 'parkingpermit', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
         }
         catch (err) {
             console.error(err);
@@ -324,13 +411,6 @@ exports.DisplayParkingPermit = DisplayParkingPermit;
 function ProcessChangePassword(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (req.body.newpassword != req.body.renewpassword) {
-                req.flash('changepasswordMessage', 'Password does not match.');
-                res.render('index', { title: 'Change Password', page: 'changepassword', displayName: Util_1.UserDisplayName(req) });
-                return;
-            }
-            user_1.default.findOne({ "email": Util_1.UserId(req) }, {}, {}, (err, user) => {
-            });
             return res.redirect('/');
         }
         catch (err) {
@@ -340,6 +420,18 @@ function ProcessChangePassword(req, res, next) {
     });
 }
 exports.ProcessChangePassword = ProcessChangePassword;
+function DisplayThankYou(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.render('index', { title: 'thankyou', page: 'thankyou', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayThankYou = DisplayThankYou;
 function ProcessParkingPermit(req, res, next) {
     let parking = new parking_1.default({
         "firstName": req.body.FirstName,
@@ -359,7 +451,7 @@ function ProcessParkingPermit(req, res, next) {
             console.log(err);
             res.end(err);
         }
-        res.redirect('/');
+        res.redirect('/thanks');
     });
 }
 exports.ProcessParkingPermit = ProcessParkingPermit;
@@ -403,7 +495,7 @@ function ProcessRenovations(req, res, next) {
             console.log(err);
             res.end(err);
         }
-        res.redirect('/renovationList');
+        res.redirect('/thanks');
     });
 }
 exports.ProcessRenovations = ProcessRenovations;

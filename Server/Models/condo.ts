@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const CondoSchema = new Schema({
-    unitNumber: Number,
-    userId: Number,
+    unitNumber: String ,
+    userId: String,
+    type:String,
     address: String,
     description: String
 }, {

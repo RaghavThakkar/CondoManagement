@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     id: Number,
     firstName: String,
     lastName: String,
+    password: String,
     type: String,
     email: String,
     unit: String,
@@ -31,7 +32,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
-const Model = mongoose.model("User", UserSchema as PassportLocalSchema);
+const Model = module.exports= mongoose.model("User", UserSchema as PassportLocalSchema);
 declare global {
     export type UserDocument = mongoose.Document & {
         _id: String,       //*NOTE* - this id attribute is different than the UserSchema above. It is string instead of number. modify if issues occur.
@@ -41,6 +42,7 @@ declare global {
         emailAddress: String,
         unit: String,
         city: String,
+        
         province: String,
         street: String,
         zipcode: String,
