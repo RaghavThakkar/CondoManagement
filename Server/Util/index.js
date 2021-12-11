@@ -4,9 +4,9 @@ exports.AuthGuard = exports.CurrentUser = exports.UserId = exports.UserUserName 
 function UserDisplayName(req) {
     if (req.user) {
         let user = req.user;
-        return user.displayName.toString();
+        return user;
     }
-    return '';
+    return null;
 }
 exports.UserDisplayName = UserDisplayName;
 function UserUserName(req) {

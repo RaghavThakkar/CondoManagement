@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const ContactSchema = new Schema({
+const maintenanceSchema = new Schema({
     userId: Number,
     
 }, {
-    collection: "contact"
+    collection: "maintenance"
 });
 
-const Model = mongoose.model("Contact", ContactSchema);
+const Model = mongoose.model("Maintenance", maintenanceSchema);
 export default Model;

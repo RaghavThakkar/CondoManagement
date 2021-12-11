@@ -991,6 +991,11 @@
     "media-typer" "0.3.0"
     "mime-types" "~2.1.24"
 
+"typescript@^3.5.2":
+  "integrity" "sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA=="
+  "resolved" "https://registry.npmjs.org/typescript/-/typescript-3.5.2.tgz"
+  "version" "3.5.2"
+
 "uid-safe@~2.1.5":
   "integrity" "sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA=="
   "resolved" "https://registry.npmjs.org/uid-safe/-/uid-safe-2.1.5.tgz"

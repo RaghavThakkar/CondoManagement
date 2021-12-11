@@ -2,12 +2,13 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import * as DBConfig from '../Config/db';
 
-export function UserDisplayName(req: Request): string {
+export function UserDisplayName(req: Request): UserDocument {
     if (req.user) {
         let user = req.user as UserDocument;
-        return user.displayName.toString();
+        //console.log(req.user);
+        return user;
     }
-    return '';
+    return null;
 }
 
 export function UserUserName(req: Request): string {

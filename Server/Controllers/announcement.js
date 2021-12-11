@@ -11,7 +11,7 @@ function DisplayAnnouncementPage(req, res, next) {
         if (err) {
             return console.log(err);
         }
-        res.render('index', { title: 'Announcement', page: 'announcement', announcement: announcementCollection, displayName: (0, Util_1.UserDisplayName)(req) });
+        res.render('index', { title: 'Announcement', page: 'announcement', announcement: announcementCollection, displayName: Util_1.UserDisplayName(req) });
     });
 }
 exports.DisplayAnnouncementPage = DisplayAnnouncementPage;
@@ -22,12 +22,12 @@ function DisplayEditAnnouncementPage(req, res, next) {
             console.log(err);
             res.end(err);
         }
-        res.render('index', { title: 'Edit', page: 'announcementEdit', announcement: announcementToEdit, displayName: (0, Util_1.UserDisplayName)(req) });
+        res.render('index', { title: 'Edit', page: 'announcementEdit', announcement: announcementToEdit, displayName: Util_1.UserDisplayName(req) });
     });
 }
 exports.DisplayEditAnnouncementPage = DisplayEditAnnouncementPage;
 function DisplayAddAnnouncementPage(req, res, next) {
-    res.render('index', { title: 'Add', page: 'announcementAdd', displayName: (0, Util_1.UserDisplayName)(req) });
+    res.render('index', { title: 'Add', page: 'announcementAdd', displayName: Util_1.UserDisplayName(req) });
 }
 exports.DisplayAddAnnouncementPage = DisplayAddAnnouncementPage;
 function ProcessAddAnnouncementPage(req, res, next) {

@@ -18,7 +18,7 @@ export async function DisplayHomePage(req: Request, res: Response, next: NextFun
 
         const announcementsList = await Announcement.find().limit(5).lean().exec();
 
-        console.log(bookingList);
+        console.log(bookingList); 
         res.render('index', {
             title: 'Home',
             page: 'main',
@@ -53,6 +53,7 @@ export function DisplayContactPage(req: Request, res: Response, next: NextFuncti
 }
 
 export async function ProcessContactPage(req: Request, res: Response, next: NextFunction): Promise<void> {
+
     const output = ` 
       <p>You have new Request</p>
       <h3>User Information:</h3>
