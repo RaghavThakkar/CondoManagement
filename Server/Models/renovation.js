@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const RenovationSchema = new Schema({
-    userId: Number,
+    userId: String,
     type: String,
-    unitNumber: Number,
-    created: Date,
+    startDate: String,
+    endDate: String,
+    status: String,
+    created: String,
     description: String
 }, {
     collection: "renovation"

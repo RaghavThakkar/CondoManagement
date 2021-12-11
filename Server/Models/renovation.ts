@@ -2,10 +2,12 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const RenovationSchema = new Schema({
-    userId: Number,
+    userId: String,
     type: String,
-    unitNumber: Number,
-    created: Date,
+    startDate:String,
+    endDate:String,
+    status:String,
+    created: String,
     description: String
 }, {
     collection: "renovation"

@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import Booking from '../Models/booking';
 import Announcement from '../Models/announcement';
 import Maintenance from '../Models/maintenance';
+import Renovation from '../Models/renovation';
 import User from '../Models/user';
 import Parking from '../Models/parking';
 import { UserDisplayName, CurrentUser, UserId, UserUserName } from '../Util';
@@ -425,6 +426,75 @@ export function ProcessParkingPermit(req: Request, res: Response, next: NextFunc
             res.end(err);
         }
         res.redirect('/');
+    });
+
+}
+
+export async function DisplayRenovations(req: Request, res: Response, next: NextFunction) {
+
+    try {
+        const list = await Renovation.find().lean().exec();
+        res.render('index', { title: 'Renovation', page: 'renovationList', list:list,messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
+
+
+
+export async function DisplayCreateRenovations(req: Request, res: Response, next: NextFunction) {
+
+    try {
+       
+        res.render('index', { title: 'Renovation', page: 'renovation',messages: req.flash('changepasswordMessage'), displayName: UserDisplayName(req) });
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+
+
+    // instantiate a new customer Item
+
+    // find the customer item via db.customer.update({"_id":id}) and then update
+
+
+
+}
+
+export function ProcessRenovations(req: Request, res: Response, next: NextFunction): void {
+    // instantiate a new User Object
+    let date = new Renovation
+        ({
+        
+        
+            "startDate": req.body.startDate,
+            "endDate": req.body.endDate,
+            "userId": UserId(req),
+            "description":req.body.description,
+            "type": req.body.type,
+            "status": "Pending",
+            "created": Date.now().toString(),
+        
+
+        });
+
+        Renovation.create(date, (err) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        res.redirect('/renovationList');
     });
 
 }

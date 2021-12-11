@@ -28,5 +28,8 @@ router.post('/profile', index_1.ProcessProfilePage);
 router.get('/changePassword', index_1.ChangePassWordPage);
 router.get('/parkingpermit', index_1.DisplayParkingPermit);
 router.post('/parkingpermit', index_1.ProcessParkingPermit);
+router.get('/renovationList', index_1.DisplayRenovations);
+router.get('/renovations/create', index_1.DisplayCreateRenovations);
+router.post('/renovations/create', index_1.ProcessRenovations);
 module.exports = router;
 //# sourceMappingURL=index.js.map

@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.ProcessMaintenanceRequest = exports.DisplayMaintenanceRequestList = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessRenovations = exports.DisplayCreateRenovations = exports.DisplayRenovations = exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.ProcessMaintenanceRequest = exports.DisplayMaintenanceRequestList = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
 const announcement_1 = __importDefault(require("../Models/announcement"));
 const maintenance_1 = __importDefault(require("../Models/maintenance"));
+const renovation_1 = __importDefault(require("../Models/renovation"));
 const user_1 = __importDefault(require("../Models/user"));
 const parking_1 = __importDefault(require("../Models/parking"));
 const Util_1 = require("../Util");
@@ -362,4 +363,48 @@ function ProcessParkingPermit(req, res, next) {
     });
 }
 exports.ProcessParkingPermit = ProcessParkingPermit;
+function DisplayRenovations(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const list = yield renovation_1.default.find().lean().exec();
+            res.render('index', { title: 'Renovation', page: 'renovationList', list: list, messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayRenovations = DisplayRenovations;
+function DisplayCreateRenovations(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.render('index', { title: 'Renovation', page: 'renovation', messages: req.flash('changepasswordMessage'), displayName: Util_1.UserDisplayName(req) });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayCreateRenovations = DisplayCreateRenovations;
+function ProcessRenovations(req, res, next) {
+    let date = new renovation_1.default({
+        "startDate": req.body.startDate,
+        "endDate": req.body.endDate,
+        "userId": Util_1.UserId(req),
+        "description": req.body.description,
+        "type": req.body.type,
+        "status": "Pending",
+        "created": Date.now().toString(),
+    });
+    renovation_1.default.create(date, (err) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        res.redirect('/renovationList');
+    });
+}
+exports.ProcessRenovations = ProcessRenovations;
 //# sourceMappingURL=index.js.map

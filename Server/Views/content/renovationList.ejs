@@ -1,16 +1,20 @@
 <div class="container login mt-3 bg-light">
   <h2 class="text-dark">Maintenance Requests</h2>
+  <a href="/renovations/create" id="cancelButton" class="btn btn-warning">
+    Create
+  </a>
   <table class="table login bg-light ">
     <thead>
       <tr>
         <th scope="col">Id#</th>
-        <th scope="col">Unit#</th>
-        <th scope="col">Name</th>
+        <th scope="col">Request Date#</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
         <th scope="col">Type</th>
         <th scope="col">Status</th>
-        <th scope="col">Worker</th>
-        <th scope="col">Date</th>
-        <th scope="Assign"></th>
+        <th scope="col">Description</th>
+        <th scope="col">Requester</th>
+        <th scope="Status"></th>
       </tr>
     </thead>
     <tbody>
@@ -21,10 +25,13 @@
           </th>
 
           <td>
-            <%=list[count].unit %>
+            <%=list[count].created %>
           </td>
           <td>
-            <%=list[count].firstName %>
+            <%=list[count].startDate %>
+          </td>
+          <td>
+            <%=list[count].endDate %>
           </td>
           <td>
             <%=list[count].type %>
@@ -33,15 +40,11 @@
             <%=list[count].status %>
           </td>
           <td>
-            <%=list[count].workerId %>
+            <%=list[count].description %>
           </td>
           <td>
-            <%=list[count].date %>
+            <%=list[count].userId %>
           </td>
-
-          <% if(displayName) { %>
-            <td><a href="/workorder/create/<%=list[count]._id%>"><i class="fas fa-plus"> Work Order</i></a></td>
-            <% } %>
         </tr>
         <% }%>
 

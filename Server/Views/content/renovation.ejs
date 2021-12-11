@@ -2,25 +2,20 @@
   <div class="row">
     <div class="offset-md-3 col-md-6 col-sm-12 mt-5">
       <div class="login bg-light" id="contentArea">
-        <h1 class="display-4">Maintenance Request</h1>
+        <h1 class="display-4">Renovation Request</h1>
+
+
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_lUWMxx.json" background="transparent"
+          speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+
 
         <form method="POST" class="row g-3 needs-validation" novalidate>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <input class="form-control" type="text" name="FirstName" id="firstName" placeholder="First Name"
-                  required />
-              </div>
-              <div class="col-md-6">
-                <input class="form-control" type="text" name="LastName" id="lastName" placeholder="Last Name"
-                  required />
-              </div>
-            </div>
-          </div>
+
           <div class="form-group mt-3">
             <div class="row">
               <div class="col-md-12">
-                <input type="text" class="form-control" id="unit#" name="unit" required placeholder="Unit #" />
+                <input type="date" class="form-control" id="date" name="startDate" required value="" />
               </div>
             </div>
           </div>
@@ -28,7 +23,7 @@
           <div class="form-group mt-3">
             <div class="row">
               <div class="col-md-12">
-                <input type="date" class="form-control" id="date" name="date" required value="" />
+                <input type="date" class="form-control" id="date" name="endDate" required value="" />
               </div>
             </div>
           </div>
@@ -49,7 +44,8 @@
           </div>
 
           <div class="mb-3">
-            <textarea class="form-control" id="validationTextarea" name="description" placeholder="Brief Description" required></textarea>
+            <textarea class="form-control" id="validationTextarea" name="description" placeholder="Brief Description"
+              required></textarea>
           </div>
 
           <div class="text-end mt-3">
