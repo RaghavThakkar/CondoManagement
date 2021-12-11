@@ -4,9 +4,10 @@ import passport from 'passport';
 import nodemailer from 'nodemailer';
 import Booking from '../Models/booking';
 import Announcement from '../Models/announcement';
+import Maintenance from '../Models/maintenance';
 import User from '../Models/user';
 import Parking from '../Models/parking';
-import { UserDisplayName, CurrentUser, UserId } from '../Util';
+import { UserDisplayName, CurrentUser, UserId, UserUserName } from '../Util';
 
 export async function DisplayHomePage(req: Request, res: Response, next: NextFunction) {
 
@@ -43,6 +44,90 @@ export function DisplayCondoUnits(req: Request, res: Response, next: NextFunctio
 export function DisplayMaintenanceRequest(req: Request, res: Response, next: NextFunction): void {
     res.render('index', { title: 'Maintenance Request', page: 'maintenanceRequest', displayName: UserDisplayName(req) });
 }
+
+
+export async function DisplayMaintenanceRequestList(req: Request, res: Response, next: NextFunction): void {
+
+    try {
+
+        const list = await Maintenance.find().lean().exec();
+
+        res.render('index', { 
+            title: 'Maintenance Requests', 
+        page: 'maintenanceRequestList',
+        list:list,
+         displayName: UserDisplayName(req) });
+
+    } catch (err) {
+        console.error(err);
+        res.end(err);
+    }
+
+    
+}
+export async function ProcessMaintenanceRequest(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+  
+    let newMaintenance = new Maintenance
+        ({
+            "firstName": req.body.FirstName,
+            "lastName": req.body.LastName,
+            "unit": req.body.unit,
+            "type": req.body.type,
+            "date": req.body.date,
+            "description": req.body.description,
+            "userId":UserId(req)
+        });
+
+
+    try {
+        var processedRequest= await Maintenance.create(newMaintenance);
+
+        const output = ` 
+        <h3>Info</h3>
+        <ul>
+         <li><b>Name:</b> ${req.body.firstName} ${req.body.lastName}</li>
+         <li><b>Unit:</b> ${req.body.unit}</li>
+         <li><b>Date:</b> ${req.body.date}</li>
+         <li><b>Issue:</b> ${req.body.type}</li>
+         <li><b>Description:</b> ${req.body.description}</li>
+         </ul>
+      `;
+  
+      let transporter = nodemailer.createTransport({
+          service: 'gmail', // true for 465, false for other ports
+          auth: {
+              user: 'latestdummy@gmail.com', //
+              pass: 'latest@123', //
+          }
+      });
+  
+      // send mail with defined transport object
+      let mailOptions = {
+          from: 'latestdummy@gmail.com', // sender address
+          to: 'latestdummy@gmail.com', // list of receivers
+          subject: "New Maintenance Request", // Subject line
+          text: "Hello World",
+          html: output
+      };
+  
+      transporter.sendMail(mailOptions, function (err, data) {
+          if (err) {
+              console.log('error');
+          } else {
+              console.log('success....' + data.response);
+          }
+      })
+      return res.redirect('/home');
+        
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+
+   
+}
+
 
 export function DisplayProjectPage(req: Request, res: Response, next: NextFunction): void {
     res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName(req) });
@@ -326,7 +411,7 @@ export function ProcessParkingPermit(req: Request, res: Response, next: NextFunc
             "unit": req.body.condounit,
             "email": req.body.email,
             "userId": UserId(req),
-            "parkingNumber": 1,
+            "parkingNumber": Math.floor(Math.random() * 50) + 1,
             "fromTime": req.body.fromtime,
             "toTime": req.body.totime,
             "date": req.body.date,

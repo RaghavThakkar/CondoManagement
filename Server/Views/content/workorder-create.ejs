@@ -15,8 +15,7 @@
           <div class="form-group mt-3">
             <div class="row">
               <div class="col-md-12">
-                <input type="text" class="form-control" id="unit#" value="<%=workOrder.unit%>" name="unit" required
-                  placeholder="Unit #" />
+                <input type="text" class="form-control" id="unit#" name="unit" required placeholder="Unit #" />
               </div>
             </div>
           </div>
@@ -24,8 +23,7 @@
           <div class="form-group mt-3">
             <div class="row">
               <div class="col-md-12">
-                <input type="date" class="form-control" id="date" name="date" required
-                  value="<%=workOrder.order_Due%>" />
+                <input type="date" class="form-control" id="date" name="date" required value="" />
               </div>
             </div>
           </div>
@@ -35,7 +33,7 @@
               <div class="col-md-12">
                 <select class="form-select" aria-label="Worker" name="worker" required>
                   <option selected value="">Select a Worker</option>
-                  <option value="James" selected>James</option>
+                  <option value="James">James</option>
                   <option value="Bob">Bob</option>
                   <option value="Martin">Martin</option>
 
@@ -47,13 +45,11 @@
           <div class="form-group mt-2">
             <div class="row">
               <div class="col-md-12">
-                <select class="form-select" id="status" aria-label="Default select example" name="status" required>
+                <select class="form-select" aria-label="Default select example" name="status" required>
                   <option selected value="">Select a Priority</option>
-                  <% var options=[ "High" , "Low" , "Medium" ]; for ( var i=0; i < options.length; i++ ) { var
-                    selected=( options[0]==workOrder.status) ? "selected" : "" ; %>
-                    <option value="<%=options[ i ] %>" <%=selected %>><%=options[i] %>
-                    </option>
-                    <% } %>
+                  <option value="High">High</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
 
                 </select>
               </div>
@@ -65,7 +61,7 @@
               <div class="col-md-12">
                 <select class="form-select" aria-label="Default select example" name="priority" required>
                   <option selected value="">Select a status</option>
-                  <option value="Pending" selected>Pending</option>
+                  <option value="Pending">Pending</option>
                   <option value="Assigned">Assigned</option>
                   <option value="Resolved">Resolved</option>
                 </select>
@@ -77,7 +73,7 @@
 
           <div class="mb-3 mt-2">
             <textarea class="form-control" id="validationTextarea" name="description" placeholder="Brief Description"
-              required><%=workOrder.description%></textarea>
+              required></textarea>
           </div>
 
           <div class="text-end mt-3">

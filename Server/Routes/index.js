@@ -16,6 +16,8 @@ router.get('/contact', index_1.DisplayContactPage);
 router.post('/contact', index_1.ProcessContactPage);
 router.get('/condoUnits', index_1.DisplayCondoUnits);
 router.get('/maintenanceRequest', index_1.DisplayMaintenanceRequest);
+router.get('/maintenanceRequestList', index_1.DisplayMaintenanceRequestList);
+router.post('/maintenanceRequest', index_1.ProcessMaintenanceRequest);
 router.get('/login', index_1.DisplayLoginPage);
 router.post('/login', index_1.ProcessLoginPage);
 router.get('/register', index_1.DisplayRegisterPage);

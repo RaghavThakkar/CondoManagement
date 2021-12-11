@@ -15,16 +15,6 @@
          </li>
 
        
-
-        
-
-         <li class="nav-item ">
-           <% if (page=="contact") { %>
-           <a class="nav-link active" id="contact" href="/contact"> <i class="fas fa-phone fa-lg"> </i> Contact</a>
-           <% } else { %>
-           <a class="nav-link" id="contact" href="/contact"> <i class="fas fa-phone fa-lg"> </i> Contact</a>
-           <% } %>
-         </li>
          <% if(displayName) { %>
          <li class="nav-item">
            <a class="nav-link" href="/announcement"><i class="far fa-bell"></i></i> Announcements</a>
@@ -40,14 +30,46 @@
              <a class="nav-link" href="/condoUnits"><i class="fas fa-building"></i> Condo Units</a>
            </li>
            <%}%>
-           <% if(displayName) { %>
+           <% if(displayName) { 
+            if(displayName.type=="Management") { %>
             <li class="nav-item">
+               <a class="nav-link" href="/maintenanceRequestList"><i class="fas fa-tools"></i> Maintenance Requests</a>
+             </li>
+               <% } else { %>
+             <li class="nav-item">
                <a class="nav-link" href="/maintenanceRequest"><i class="fas fa-tools"></i> Maintenance Request</a>
              </li>
-             <%}%>
+              <% }} %>
+           
 
-         <% if(displayName) { %>
-          <li class="navbar-text px-3 "><a href="/profile/" class="account-name"><i class="fas fa-lg fa-user"></i>&nbsp;&nbsp;&nbsp;<%= displayName.displayName %></a></li>
+      
+
+           <li class="nav-item ">
+           <% if (page=="about") { %>
+           <a class="nav-link active" id="aboutus" href="/about"> <i class="fas fa-info fa-lg"> </i> About</a>
+           <% } else { %>
+           <a class="nav-link" id="aboutus" href="/about"> <i class="fas fa-info fa-lg"> </i> About</a>
+           <% } %>
+         </li>
+
+          <li class="nav-item ">
+           <% if (page=="parking") { %>
+           <a class="nav-link active" id="aboutus" href="/parkingpermit"> <i class="fas fa-car fa-lg"> </i> Parking Permit</a>
+           <% } else { %>
+           <a class="nav-link" id="aboutus" href="/parkingpermit"> <i class="fas fa-car fa-lg"> </i> Parking Permit</a>
+           <% } %>
+         </li>
+
+           <li class="nav-item ">
+           <% if (page=="contact") { %>
+           <a class="nav-link active" id="contact" href="/contact"> <i class="fas fa-phone fa-lg"> </i> Contact</a>
+           <% } else { %>
+           <a class="nav-link" id="contact" href="/contact"> <i class="fas fa-phone fa-lg"> </i> Contact</a>
+           <% } %>
+         </li>
+
+          <% if(displayName) { %>
+          <li class="navbar-text px-1 "><a href="/profile/" class="account-name"><i class="fas fa-lg fa-user"></i>&nbsp;&nbsp;&nbsp;<%= displayName.displayName %></a></li>
 
          <li class="nav-item">
            <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
@@ -57,14 +79,6 @@
            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt fa-lg"></i> Login</a>
          </li>
          <% } %>
-
-           <li class="nav-item ">
-           <% if (page=="about") { %>
-           <a class="nav-link active" id="aboutus" href="/about"> <i class="fas fa-info fa-lg"> </i> About</a>
-           <% } else { %>
-           <a class="nav-link" id="aboutus" href="/about"> <i class="fas fa-info fa-lg"> </i> About</a>
-           <% } %>
-         </li>
        </ul>
      </div>
    </div>

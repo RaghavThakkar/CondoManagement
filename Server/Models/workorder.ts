@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const WorkOrderSchema = new Schema({
+    worker:String,
     order_Due: String,
     id: String,             //field type set as string (for simplicity).
     status: String,

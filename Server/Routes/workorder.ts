@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-import { DisplayWorkOrderPage,DisplayEditWorkOrderPage,ProcessEditWorkOrderPage,ProcessDeleteWorkOrderPage} from '../Controllers/workorder'
+import { DisplayWorkOrderPage,DisplayEditWorkOrderPage,ProcessEditWorkOrderPage,ProcessDeleteWorkOrderPage, DisplayCreateWorkOrderPage, ProcessCreateWorkOrderPage} from '../Controllers/workorder'
 import { AuthGuard } from '../Util'
 
 /* GET home page. */
@@ -12,6 +12,10 @@ router.get('/', DisplayWorkOrderPage);
 router.get('/', DisplayWorkOrderPage);
 /*GET edit page with /work order/edit/id */
 router.get('/edit/:id', DisplayEditWorkOrderPage);
+
+router.get('/create/:id', DisplayCreateWorkOrderPage);
+
+router.post('/create/:id', ProcessCreateWorkOrderPage);
 
 /*GET add page with /work order/edit/id */
 //router.get('/add',DisplayAddAnnouncementPage);

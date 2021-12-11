@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
+exports.ProcessParkingPermit = exports.ProcessChangePassword = exports.DisplayParkingPermit = exports.ChangePassWordPage = exports.ProcessProfilePage = exports.DisplayProfilePage = exports.DisplayWorkOrderPage = exports.ProcessLogoutPage = exports.ProcessRegisterPage = exports.DisplayRegisterPage = exports.ProcessLoginPage = exports.DisplayLoginPage = exports.DisplayServicesPage = exports.ProcessContactPage = exports.DisplayContactPage = exports.DisplayProjectPage = exports.ProcessMaintenanceRequest = exports.DisplayMaintenanceRequestList = exports.DisplayMaintenanceRequest = exports.DisplayCondoUnits = exports.DisplayAboutPage = exports.DisplayHomePage = void 0;
 const passport_1 = __importDefault(require("passport"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const booking_1 = __importDefault(require("../Models/booking"));
 const announcement_1 = __importDefault(require("../Models/announcement"));
+const maintenance_1 = __importDefault(require("../Models/maintenance"));
 const user_1 = __importDefault(require("../Models/user"));
 const parking_1 = __importDefault(require("../Models/parking"));
 const Util_1 = require("../Util");
@@ -53,6 +54,78 @@ function DisplayMaintenanceRequest(req, res, next) {
     res.render('index', { title: 'Maintenance Request', page: 'maintenanceRequest', displayName: Util_1.UserDisplayName(req) });
 }
 exports.DisplayMaintenanceRequest = DisplayMaintenanceRequest;
+function DisplayMaintenanceRequestList(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const list = yield maintenance_1.default.find().lean().exec();
+            res.render('index', {
+                title: 'Maintenance Requests',
+                page: 'maintenanceRequestList',
+                list: list,
+                displayName: Util_1.UserDisplayName(req)
+            });
+        }
+        catch (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DisplayMaintenanceRequestList = DisplayMaintenanceRequestList;
+function ProcessMaintenanceRequest(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let newMaintenance = new maintenance_1.default({
+            "firstName": req.body.FirstName,
+            "lastName": req.body.LastName,
+            "unit": req.body.unit,
+            "type": req.body.type,
+            "date": req.body.date,
+            "description": req.body.description,
+            "userId": Util_1.UserId(req)
+        });
+        try {
+            var processedRequest = yield maintenance_1.default.create(newMaintenance);
+            const output = ` 
+        <h3>Info</h3>
+        <ul>
+         <li><b>Name:</b> ${req.body.firstName} ${req.body.lastName}</li>
+         <li><b>Unit:</b> ${req.body.unit}</li>
+         <li><b>Date:</b> ${req.body.date}</li>
+         <li><b>Issue:</b> ${req.body.type}</li>
+         <li><b>Description:</b> ${req.body.description}</li>
+         </ul>
+      `;
+            let transporter = nodemailer_1.default.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'latestdummy@gmail.com',
+                    pass: 'latest@123',
+                }
+            });
+            let mailOptions = {
+                from: 'latestdummy@gmail.com',
+                to: 'latestdummy@gmail.com',
+                subject: "New Maintenance Request",
+                text: "Hello World",
+                html: output
+            };
+            transporter.sendMail(mailOptions, function (err, data) {
+                if (err) {
+                    console.log('error');
+                }
+                else {
+                    console.log('success....' + data.response);
+                }
+            });
+            return res.redirect('/home');
+        }
+        catch (error) {
+            console.error(error);
+            return next(error);
+        }
+    });
+}
+exports.ProcessMaintenanceRequest = ProcessMaintenanceRequest;
 function DisplayProjectPage(req, res, next) {
     res.render('index', { title: 'Our Projects', page: 'projects', displayName: Util_1.UserDisplayName(req) });
 }
@@ -274,7 +347,7 @@ function ProcessParkingPermit(req, res, next) {
         "unit": req.body.condounit,
         "email": req.body.email,
         "userId": Util_1.UserId(req),
-        "parkingNumber": 1,
+        "parkingNumber": Math.floor(Math.random() * 50) + 1,
         "fromTime": req.body.fromtime,
         "toTime": req.body.totime,
         "date": req.body.date,

@@ -2,7 +2,23 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const maintenanceSchema = new Schema({
-    userId: Number,
+    firstName: String,
+    lastName: String,
+    type: String,
+    unit:String,
+    date:String,
+    description:String,
+    userId:String,
+    workerId:String,
+    status:String,
+    created: {
+        type: Date,
+        default: Date.now()
+    },
+    updated: {
+        type: Date,
+        default: Date.now()
+    }
     
 }, {
     collection: "maintenance"
