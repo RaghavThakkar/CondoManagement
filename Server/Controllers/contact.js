@@ -12,7 +12,7 @@ function DisplayContactList(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.render('index', { title: 'Contact List', page: 'contact-list', contacts: contactList, displayName: Util_1.UserDisplayName(req) });
+        res.render('index', { title: 'Contact List', page: 'contact-list', contacts: contactList, displayName: (0, Util_1.UserDisplayName)(req) });
     }).sort({ "name": 1 });
 }
 exports.DisplayContactList = DisplayContactList;
@@ -23,12 +23,12 @@ function DisplayEditPage(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.render('index', { title: 'Edit', page: 'contact-edit', item: item, displayName: Util_1.UserDisplayName(req) });
+        res.render('index', { title: 'Edit', page: 'contact-edit', item: item, displayName: (0, Util_1.UserDisplayName)(req) });
     });
 }
 exports.DisplayEditPage = DisplayEditPage;
 function DisplayAddPage(req, res, next) {
-    res.render('index', { title: 'Add', page: 'contact-edit', item: '', displayName: Util_1.UserDisplayName(req) });
+    res.render('index', { title: 'Add', page: 'contact-edit', item: '', displayName: (0, Util_1.UserDisplayName)(req) });
 }
 exports.DisplayAddPage = DisplayAddPage;
 function ProcessContactUpdate(req, res, next) {

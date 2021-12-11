@@ -21,20 +21,20 @@ function DisplayBooking(req, res, next) {
         title: 'Booking',
         page: 'booking',
         messages: req.flash('booking'),
-        displayName: Util_1.UserDisplayName(req)
+        displayName: (0, Util_1.UserDisplayName)(req)
     });
 }
 exports.DisplayBooking = DisplayBooking;
 function DisplayBookingList(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const bookingList = yield booking_1.default.find({ 'userId': Util_1.UserDisplayName(req) }).lean().exec();
+            const bookingList = yield booking_1.default.find({ 'userId': (0, Util_1.UserDisplayName)(req) }).lean().exec();
             console.log(bookingList);
             res.render('index', {
                 title: 'Booking List',
                 page: 'bookingList',
                 items: bookingList,
-                displayName: Util_1.UserDisplayName(req)
+                displayName: (0, Util_1.UserDisplayName)(req)
             });
         }
         catch (err) {
@@ -52,7 +52,7 @@ function ProcessBooking(req, res, next) {
         console.log(req.body.timeslot);
         try {
             let booking = new booking_1.default({
-                "userId": Util_1.UserDisplayName(req),
+                "userId": (0, Util_1.UserDisplayName)(req),
                 "date": req.body.date,
                 "timeSlot": req.body.timeslot,
                 "type": name,
